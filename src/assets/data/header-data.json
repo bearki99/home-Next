@@ -2,12 +2,14 @@
   {
     "url": "/",
     "onblank": false,
-    "name": "首页"
+    "name": "首页",
+    "label": "上新"
   },
   {
     "url": "/pins",
     "onblank": false,
-    "name": "沸点"
+    "name": "沸点",
+    "label": "new"
   },
   {
     "url": "/course",

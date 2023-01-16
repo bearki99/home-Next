@@ -1,0 +1,128 @@
+@import "@/styles/variables.less";
+
+.header {
+  height: 5rem;
+  line-height: @mainHeader;
+  display: fixed;
+  color: var(--text-color);
+  z-index: 250;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: all 0.2s;
+  border-bottom: 1px solid #f1f1f1;
+}
+.cotainer {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  height: 100%;
+  max-width: 1440px;
+}
+.logo {
+  margin-right: 1rem;
+}
+.headerIcon {
+  margin-left: 24px;
+  margin-right: 0.2rem;
+}
+.name {
+  display: inline-block;
+  color: var(--header-text-color);
+  position: relative;
+  top: 0.2rem;
+  font-size: 1.6rem;
+}
+.header-show {
+  transform: translateZ(0);
+}
+.header-hidden {
+  transform: translate3d(0, -100%, 0);
+}
+.navPanigate {
+  display: flex;
+}
+.panigateA {
+  margin: 0 1rem;
+  color: var(--header-nav-text-color);
+  text-decoration: none;
+}
+.mobilePanigate {
+  display: none;
+}
+.panigateItem {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.167rem;
+}
+.panigateItem:hover {
+  .panigateA {
+    display: inline-block;
+    position: relative;
+    color: var(--header-nav-hover-color);
+    &::before {
+      content: "";
+      position: absolute;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0.1rem;
+      background-color: var(--active-color);
+    }
+  }
+}
+.newLabel {
+  position: absolute;
+  right: -0.17rem;
+  top: 0.65rem;
+  font-size: 1rem;
+  transform: scale(0.6);
+  color: white;
+  background-color: red;
+  z-index: 999;
+  display: table;
+  border-radius: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  line-height: normal;
+}
+.header .container {
+  margin: auto;
+  max-width: 1440px;
+}
+@media (max-width: 1149px) {
+  .cotainer {
+    width: 97%;
+    margin: 0 1.5rem !important;
+  }
+  .headerIcon {
+    margin-left: 0px;
+  }
+}
+@media (max-width: 640px) {
+  .cotainer {
+    margin: 0 0.917rem 0 1.5rem !important;
+  }
+  .headerIcon {
+    position: relative;
+    top: 0.02rem;
+    margin-left: 0;
+  }
+  .name {
+    display: none;
+  }
+}
+@media screen and (max-width: 1350px){
+  .panigateItem:nth-last-child(-n+2){
+    display: none !important;
+  }
+}
+@media screen and (max-width: 1190px){
+  .navPanigate {
+    display: none;
+  }
+  .mobilePanigate {
+    display: flex !important;
+  }
+}

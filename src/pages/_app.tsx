@@ -1,8 +1,7 @@
 import "normalize.css";
 import "antd/dist/reset.css";
 import "@/styles/globals.less";
-import "uno.css";
-
+import "@/styles/header.less";
 import { Provider } from "react-redux";
 import wrapper from "@/store";
 import type { AppProps } from "next/app";

@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const Layout: React.FC<IProps> = (props) => {
-  const { children } = props;
+  const { children} = props;
   return (
     <div className="layout">
       <Header />
@@ -16,3 +16,4 @@ const Layout: React.FC<IProps> = (props) => {
 };
 export default memo(Layout);
 Layout.displayName = "Layout";
+
