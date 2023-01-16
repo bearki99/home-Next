@@ -1,0 +1,47 @@
+[
+  {
+    "url": "/",
+    "onblank": false,
+    "name": "首页"
+  },
+  {
+    "url": "/pins",
+    "onblank": false,
+    "name": "沸点"
+  },
+  {
+    "url": "/course",
+    "onblank": false,
+    "name": "课程"
+  },
+  {
+    "url": "/live",
+    "onblank": false,
+    "name": "直播"
+  },
+  {
+    "url": "/events",
+    "onblank": false,
+    "name": "活动"
+  },
+  {
+    "url": "/challenge",
+    "onblank": false,
+    "name": "竞赛"
+  },
+  {
+    "url": "https://detail.youzan.com/show/goods/newest?kdt_id=104340304",
+    "onblank": true,
+    "name": "商城"
+  },
+  {
+    "url": "/app",
+    "onblank": true,
+    "name": "APP"
+  },
+  {
+    "url": "/extension",
+    "onblank": true,
+    "name": "插件"
+  }
+]

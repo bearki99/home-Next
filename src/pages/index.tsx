@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import type { IAppDispatch, IAppState } from "@/store";
 import { incrementAction } from "@/store/modules/home";
 import { Button } from "antd";
-
+import MainContent from "@/pages/[label]";
 export default function HomePage() {
   const dispatch = useDispatch<IAppDispatch>();
   const { counter } = useSelector((state: IAppState) => ({
@@ -20,6 +20,7 @@ export default function HomePage() {
       <Button type="primary" onClick={changeCounter} className={styles.btn}>
         +1
       </Button>
+      <MainContent />
     </>
   );
 }
