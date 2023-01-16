@@ -1,15 +1,25 @@
 import styles from "@/styles/Home.module.less";
+import { useSelector, useDispatch } from "react-redux";
+import type { IAppDispatch, IAppState } from "@/store";
+import { incrementAction } from "@/store/modules/home";
 import { Button } from "antd";
-import { useState } from "react";
 
 export default function HomePage() {
-  const [count, setCount] = useState(0);
-
+  const dispatch = useDispatch<IAppDispatch>();
+  const { counter } = useSelector((state: IAppState) => ({
+    counter: state.home.counter,
+  }));
+  function changeCounter() {
+    const newCounter = counter + 1;
+    dispatch(incrementAction(newCounter));
+  }
   return (
-    <main>
-      <h1 className="text-center">unocss</h1>
-      <h1 className={styles.title}>Css Modules</h1>
-      <Button onClick={() => setCount(count + 1)}>{count}++</Button>
-    </main>
+    <>
+      <main className={styles.title}>main-page</main>
+      <div className={styles.counter}>Redux-counter: {counter}</div>
+      <Button type="primary" onClick={changeCounter} className={styles.btn}>
+        +1
+      </Button>
+    </>
   );
 }
