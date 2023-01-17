@@ -87,9 +87,60 @@
   padding: 0.1rem 0.3rem;
   line-height: normal;
 }
+.mobilePanigate {
+  display: none;
+  flex-direction: column;
+}
+.mobileMenu {
+  height: 5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex: 1 0 auto;
+}
+.mobileName {
+  font-size: 1.33rem;
+  color: var(--active-color);
+  margin-right: 0.333rem;
+}
+.mobileItem {
+  display: block;
+  width: 100%;
+  height: 4rem;
+  text-decoration: none;
+  text-align: center;
+}
+.mobileTextName {
+  font-size: 1.167rem;
+  color: var(--header-nav-text-color);
+}
+.unfold16Icon {
+  fill: #515767;
+  transition: transform 0.2s ease-in-out;
+}
+.nav {
+  position: relative;
+}
 .header .container {
   margin: auto;
   max-width: 1440px;
+}
+.mobileItem:hover {
+  .mobileTextName {
+    display: inline-block;
+    position: relative;
+    color: var(--mobile-hover-color);
+    &::before {
+      content: "";
+      position: absolute;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0.14rem;
+      background-color: var(--active-color);
+    }
+  }
 }
 @media (max-width: 1149px) {
   .cotainer {
@@ -112,17 +163,40 @@
   .name {
     display: none;
   }
+  .phoneMenuDetail {
+    left: -5.7rem !important;
+  }
 }
-@media screen and (max-width: 1350px){
-  .panigateItem:nth-last-child(-n+2){
+@media screen and (max-width: 1350px) {
+  .panigateItem:nth-last-child(-n + 2) {
     display: none !important;
   }
 }
-@media screen and (max-width: 1190px){
+@media screen and (max-width: 1190px) {
   .navPanigate {
     display: none;
   }
   .mobilePanigate {
-    display: flex !important;
+    display: block;
+    position: relative;
+  }
+  .phoneMenuDetail {
+    display: block;
+    position: absolute;
+    z-index: 99;
+    background-color: var(--background-color);
+    right: -4rem;
+    left: -4.3rem;
+    padding: 0.667rem;
+    width: 11.9rem;
+    top: 52px;
+    box-shadow: 0 8px 24px rgb(81 87 103 / 16%);
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    overflow: hidden;
+  }
+  .phoneMenuHidden {
+    display: none;
   }
 }
