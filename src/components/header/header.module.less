@@ -1,5 +1,4 @@
 @import "@/styles/variables.less";
-
 .header {
   height: 5rem;
   line-height: @mainHeader;
@@ -15,6 +14,7 @@
 }
 .cotainer {
   display: flex;
+  flex: 1 0 auto;
   align-items: center;
   margin: 0 auto;
   height: 100%;
@@ -33,12 +33,6 @@
   position: relative;
   top: 0.2rem;
   font-size: 1.6rem;
-}
-.header-show {
-  transform: translateZ(0);
-}
-.header-hidden {
-  transform: translate3d(0, -100%, 0);
 }
 .navPanigate {
   display: flex;
@@ -119,7 +113,16 @@
   transition: transform 0.2s ease-in-out;
 }
 .nav {
+  display: flex;
+  justify-content: space-between;
   position: relative;
+  flex-direction: row-reverse;
+  position: relative;
+  flex: 1 0 auto;
+}
+.navList {
+  order: 99;
+  display: flex;
 }
 .header .container {
   margin: auto;
@@ -142,6 +145,14 @@
     }
   }
 }
+.rightSide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  margin: 0;
+  order: 0;
+}
 @media (max-width: 1149px) {
   .cotainer {
     width: 97%;
@@ -152,6 +163,9 @@
   }
 }
 @media (max-width: 640px) {
+  .header {
+    height: 4.333rem;
+  }
   .cotainer {
     margin: 0 0.917rem 0 1.5rem !important;
   }
@@ -199,7 +213,4 @@
   .phoneMenuHidden {
     display: none;
   }
-}
-.test {
-  margin: 0;
 }

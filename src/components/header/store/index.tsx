@@ -9,7 +9,7 @@ interface IHomeHeader {
 }
 export const getHeaderDataAction = createAsyncThunk("header", async () => {
   const res = await getHeaderTags();
-  return res;
+  return res.data.list;
 });
 const headerSlice = createSlice({
   name: "header",

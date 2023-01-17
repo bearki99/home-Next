@@ -1,3 +1,4 @@
+import Subheader from "@/components/subheader";
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import { memo } from "react";
@@ -8,7 +9,12 @@ interface IProps {
 const MainContent: React.FC<IProps> = () => {
   const router = useRouter();
   const { label = "recommended" } = router.query;
-  return <div>MainContent:{label}</div>;
+  return (
+    <div>
+      {label === "recommended" && <Subheader />}
+      {label}
+    </div>
+  );
 };
 export default memo(MainContent);
 MainContent.displayName = "MainContent";
