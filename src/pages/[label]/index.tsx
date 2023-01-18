@@ -1,27 +1,35 @@
-import Subheader from "@/components/subheader";
-import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import { memo } from "react";
-import { useSelector } from "react-redux";
 import styles from "./style.module.less";
+import { useRouter } from "next/router";
+import SubContent from "./[names]";
+import { shallowEqual, useSelector } from "react-redux";
+import Subheader from "@/components/subheader";
 interface IProps {
   children?: ReactNode;
 }
 
 const MainContent: React.FC<IProps> = () => {
-  const router = useRouter();
+  const routes = useRouter();
+  const { label } = routes.query;
   const { homeTags } = useSelector((state: any) => ({
     homeTags: state.header.homeTags,
-  }));
-  const currentIDs = homeTags && homeTags.map((item: any) => item.id);
-  const { label = "recommended" } = router.query;
-  const flag = currentIDs.includes(label);
-  return (
-    <div className={styles.mainBG}>
-      {(flag || label == "recommended") && <Subheader />}
-      <div className={styles.mainContent}>{label}</div>
-    </div>
-  );
+  }), shallowEqual);
+  const nowTags = homeTags && homeTags.map((item: any) => item.id + "");
+  if (!label || nowTags.includes(label)) {
+    return (
+      <>
+        <Subheader />
+        <SubContent />
+      </>
+    );
+  } else {
+    return (
+      <div className={styles.mainBG}>
+        <div className={styles.mainContent}></div>
+      </div>
+    );
+  }
 };
 export default memo(MainContent);
 MainContent.displayName = "MainContent";

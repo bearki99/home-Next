@@ -9,6 +9,7 @@ import {
   changeinitialSubIndexAction,
 } from "../header/store";
 import { debounce } from "lodash";
+import { useRouter } from "next/router";
 interface IProps {
   children?: ReactNode;
 }
@@ -18,88 +19,110 @@ const SubHeader: React.FC<IProps> = () => {
     initialSubIndex: state.header.initialSubIndex,
     isHide: state.header.isHide,
   }));
-  homeTags = homeTags.slice(0, 1);
   const dispatch = useDispatch();
   const [showSubTags, setShowSubTags] = useState(false);
+  const [currentIndex, changeIdx] = useState(-1);
+  const router = useRouter();
+  const { names } = router.query;
   const showTag = useCallback(
     debounce(() => setShowSubTags(true), 500),
     []
   );
-  const hideTag = useCallback(
-    debounce(() => setShowSubTags(false), 300),
-    []
-  );
+  const hideTag = () => {
+    setShowSubTags(false);
+  };
   const handleClick = (item: any) => {
     dispatch(changecurrentsubTagsAction(item));
   };
   return (
-    <div className={classNames([styles.container], {
-      [styles.Chide]: isHide === true,
-      [styles.Cshow]: isHide === false
-    })}>
-      <div className={styles.headerList}>
-        <div className={styles.leftContent}>
-          {homeTags &&
-            homeTags.map((item: any, index: number) => {
-              return (
-                <div
-                  key={item.id}
-                  onMouseLeave={hideTag}
-                  onClick={() => handleClick(item.labels)}
-                >
-                  <Link
-                    href={item.id}
-                    className={classNames(
-                      {
-                        active: index === initialSubIndex,
-                      },
-                      [styles.subheadItem]
-                    )}
-                    onClick={() => {
-                      dispatch(changeinitialSubIndexAction(index));
-                    }}
-                    onMouseEnter={showTag}
+    <div className={styles.mysubHeader}>
+      <div
+        className={classNames([styles.container], {
+          [styles.Chide]: isHide === true,
+          [styles.Cshow]: isHide === false,
+        })}
+      >
+        <div className={styles.headerList}>
+          <div className={styles.leftContent}>
+            {homeTags &&
+              homeTags.map((item: any, index: number) => {
+                return (
+                  <div
+                    className={styles.allItems}
+                    key={item.id}
+                    onMouseLeave={hideTag}
+                    onClick={() => handleClick(item.labels)}
                   >
-                    <span className={styles.text}>
-                      {item.name.substring(0, 2)}
-                    </span>
-                  </Link>
-                  {item.labels && (
-                    <div
+                    <Link
+                      href={"/" + item.id}
                       className={classNames(
                         {
-                          [styles.show]: showSubTags === true,
-                          [styles.hide]: showSubTags === false,
+                          active: index === initialSubIndex,
                         },
-                        [styles.hoverItem],
-                        [styles.forceHidden]
+                        [styles.subheadItem]
                       )}
+                      onClick={() => {
+                        dispatch(changeinitialSubIndexAction(index));
+                      }}
+                      onMouseEnter={() => {
+                        showTag();
+                        changeIdx(index);
+                      }}
                     >
-                      <ul className={styles.tagList}>
-                        {item.labels.map((item: any) => {
-                          return (
-                            <li key={item.id} className={styles.tag}>
-                              <Link href={item.id} className={styles.gotoItem}>
-                                {item.label.substring(0, 4)}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          <Link
-            className={classNames(
-              [styles.subheadItem],
-              [styles.lastsubheadItem]
-            )}
-            href="/subcribe/subcribed"
-          >
-            标签管理
-          </Link>
+                      <span className={styles.text}>
+                        {item.name.substring(0, 2)}
+                      </span>
+                    </Link>
+                    {item.labels && (
+                      <div
+                        className={classNames(
+                          {
+                            [styles.show]:
+                              showSubTags === true && index === currentIndex,
+                            [styles.hide]: showSubTags === false,
+                          },
+                          [styles.hoverItem],
+                          [styles.forceHidden]
+                        )}
+                      >
+                        <div className={styles.tagList}>
+                          {item &&
+                            item.labels.map((elem: any) => {
+                              return (
+                                <div
+                                  key={elem.id}
+                                  className={classNames(
+                                    {
+                                      [styles.activeItem]: names == elem.id,
+                                    },
+                                    [styles.tag]
+                                  )}
+                                >
+                                  <Link
+                                    href={"/" + item.id + "/" + elem.id}
+                                    className={styles.gotoItem}
+                                  >
+                                    {elem.label.substring(0, 4)}
+                                  </Link>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            <Link
+              className={classNames(
+                [styles.subheadItem],
+                [styles.lastsubheadItem]
+              )}
+              href="/subcribe/subcribed"
+            >
+              标签管理
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import wrapper from "@/store";
 import type { AppProps } from "next/app";
 
 import Layout from "@/components/layout";
+import Header from "@/components/header";
 
 export default function App({ Component, ...rest }: AppProps) {
   // Redux接入
@@ -14,6 +15,7 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <Layout>
+        <Header />
         <Component {...props.pageProps} />
       </Layout>
     </Provider>

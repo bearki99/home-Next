@@ -9,6 +9,7 @@ export default function HomePage() {
     </>
   );
 }
+HomePage.displayName = "HomePage";
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async () => {

@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { getHeaderTags } from "../service";
-interface IHomeHeader {
+export interface IHomeHeader {
   homeTags: any[];
   currentsubTags: any[];
   initialIndex: number;
   initialSubIndex: number;
   isHide: boolean;
+  showAll: boolean;
 }
 export const getHeaderDataAction = createAsyncThunk("header", async () => {
   const res = await getHeaderTags();
@@ -20,6 +21,7 @@ const headerSlice = createSlice({
     initialIndex: 0,
     initialSubIndex: 0,
     isHide: false,
+    showAll: false,
   } as IHomeHeader,
   reducers: {
     changehomeTagsAction(state, { payload }) {
@@ -36,6 +38,9 @@ const headerSlice = createSlice({
     },
     changeIsHideAction(state, { payload }) {
       state.isHide = payload;
+    },
+    changeShowAllAction(state, { payload }) {
+      state.showAll = payload;
     },
   },
   extraReducers(builder) {
@@ -60,5 +65,6 @@ export const {
   changeinitialIndexAction,
   changeinitialSubIndexAction,
   changeIsHideAction,
+  changeShowAllAction,
 } = headerSlice.actions;
 export default headerSlice.reducer;
