@@ -32,7 +32,7 @@ const SubHeader: React.FC<IProps> = () => {
           {homeTags &&
             homeTags.map((item: any, index: number) => {
               return (
-                <div key={item.id}>
+                <div key={item.id} onMouseLeave={hideTag}>
                   <Link
                     href={item.id}
                     className={classNames(
@@ -45,7 +45,6 @@ const SubHeader: React.FC<IProps> = () => {
                       dispatch(changeinitialSubIndexAction(index));
                     }}
                     onMouseEnter={showTag}
-                    onMouseLeave={hideTag}
                   >
                     <span className={styles.text}>
                       {item.name.substring(0, 2)}
@@ -58,7 +57,8 @@ const SubHeader: React.FC<IProps> = () => {
                           [styles.show]: showSubTags === true,
                           [styles.hide]: showSubTags === false,
                         },
-                        [styles.hoverItem], [styles.forceHidden]
+                        [styles.hoverItem],
+                        [styles.forceHidden]
                       )}
                     >
                       <ul className={styles.tagList}>
