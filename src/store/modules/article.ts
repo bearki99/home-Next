@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import { IAppDispatch, IAppState } from "../index";
+import { IAppDispatch } from "../index";
 import { getArticleById } from "@/service/article";
 export interface IArticleInitialState {
   author: IAuthorInitialState;

@@ -43,7 +43,9 @@ class myRequest {
   }
 }
 
-export default new myRequest({
+const request = new myRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
 });
+
+export default request;
