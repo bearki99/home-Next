@@ -65,11 +65,17 @@
   border-radius: 5px;
   transition: all 0.4s ease;
 }
+.Chide {
+  top: 0;
+}
+.Cshow {
+  top: 5rem;
+}
 .hide {
-  opacity: 0;
+  display: none;
 }
 .show {
-  opacity: 1;
+  display: block;
 }
 .tagList {
   margin-block-start: 0;
@@ -116,12 +122,15 @@
   }
 }
 @media (max-width: 700px) {
-  .forceHidden{
+  .forceHidden {
     display: none !important;
   }
 }
 @media (max-width: 640px) {
   .container {
+    top: 4.333rem;
+  }
+  .Cshow {
     top: 4.333rem;
   }
 }

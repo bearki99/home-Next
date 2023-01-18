@@ -3,9 +3,10 @@ import { HYDRATE } from "next-redux-wrapper";
 import { getHeaderTags } from "../service";
 interface IHomeHeader {
   homeTags: any[];
-  subTags: any[];
+  currentsubTags: any[];
   initialIndex: number;
   initialSubIndex: number;
+  isHide: boolean;
 }
 export const getHeaderDataAction = createAsyncThunk("header", async () => {
   const res = await getHeaderTags();
@@ -15,22 +16,26 @@ const headerSlice = createSlice({
   name: "header",
   initialState: {
     homeTags: [],
-    subTags: [],
+    currentsubTags: [],
     initialIndex: 0,
     initialSubIndex: 0,
+    isHide: false,
   } as IHomeHeader,
   reducers: {
     changehomeTagsAction(state, { payload }) {
       state.homeTags = payload;
     },
-    changesubTagsAction(state, { payload }) {
-      state.subTags = payload;
+    changecurrentsubTagsAction(state, { payload }) {
+      state.currentsubTags = payload;
     },
     changeinitialIndexAction(state, { payload }) {
       state.initialIndex = payload;
     },
     changeinitialSubIndexAction(state, { payload }) {
       state.initialSubIndex = payload;
+    },
+    changeIsHideAction(state, { payload }) {
+      state.isHide = payload;
     },
   },
   extraReducers(builder) {
@@ -51,8 +56,9 @@ const headerSlice = createSlice({
 });
 export const {
   changehomeTagsAction,
-  changesubTagsAction,
+  changecurrentsubTagsAction,
   changeinitialIndexAction,
   changeinitialSubIndexAction,
+  changeIsHideAction,
 } = headerSlice.actions;
 export default headerSlice.reducer;

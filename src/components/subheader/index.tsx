@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.less";
 import Link from "next/link";
 import classNames from "classnames";
-import { changeinitialSubIndexAction } from "../header/store";
+import {
+  changecurrentsubTagsAction,
+  changeinitialSubIndexAction,
+} from "../header/store";
 import { debounce } from "lodash";
 interface IProps {
   children?: ReactNode;
 }
 const SubHeader: React.FC<IProps> = () => {
-  let { homeTags, initialSubIndex } = useSelector((state: any) => ({
+  let { homeTags, initialSubIndex, isHide } = useSelector((state: any) => ({
     homeTags: state.header.homeTags,
     initialSubIndex: state.header.initialSubIndex,
+    isHide: state.header.isHide,
   }));
   homeTags = homeTags.slice(0, 1);
   const dispatch = useDispatch();
@@ -25,14 +29,24 @@ const SubHeader: React.FC<IProps> = () => {
     debounce(() => setShowSubTags(false), 300),
     []
   );
+  const handleClick = (item: any) => {
+    dispatch(changecurrentsubTagsAction(item));
+  };
   return (
-    <div className={styles.container}>
+    <div className={classNames([styles.container], {
+      [styles.Chide]: isHide === true,
+      [styles.Cshow]: isHide === false
+    })}>
       <div className={styles.headerList}>
         <div className={styles.leftContent}>
           {homeTags &&
             homeTags.map((item: any, index: number) => {
               return (
-                <div key={item.id} onMouseLeave={hideTag}>
+                <div
+                  key={item.id}
+                  onMouseLeave={hideTag}
+                  onClick={() => handleClick(item.labels)}
+                >
                   <Link
                     href={item.id}
                     className={classNames(
