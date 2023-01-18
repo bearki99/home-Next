@@ -1,0 +1,18 @@
+body.light {
+  --color: #333;
+  --text-color: #909090;
+  --author-text-color: #333;
+  --article-list-divider-color: hsla(0, 0%, 59.2%, 0.2);
+  --list-hover-color: #fafafa;
+  --background-color: #fff;
+  --item-active-color: #1e80ff;
+}
+body.dark {
+  --color: #fff;
+  --text-color: #fff;
+  --author-text-color: #DDD;
+  --article-list-divider-color: hsla(0, 0%, 59.2%, 0.2);
+  --list-hover-color: #2c2c2c;
+  --background-color: #000;
+  --item-active-color: #93c4da;
+}

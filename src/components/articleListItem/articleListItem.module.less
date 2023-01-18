@@ -1,0 +1,50 @@
+.articleListItem {
+  padding: 12px 20px 0 20px;
+  cursor: pointer;
+  color: var(--text-color);
+  &:hover {
+    background-color: var(--list-hover-color);
+  }
+  .artBody {
+    display: flex;
+    width: 100%;
+    padding-bottom: 12px;
+    margin-top: 10px;
+    border-bottom: 1px solid #e5e6eb;
+    .artHead {
+      font-size: 14px;
+      .author {
+        color: var(--color);
+      }
+    }
+    .artInfo {
+      flex: 1;
+      overflow: hidden;
+      flex-direction: column;
+      justify-content: space-around;
+      display: flex;
+      .artTitle {
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        color: var(--color);
+      }
+      .artContent {
+        font-size: 14px;
+        line-height: 24px;
+      }
+    }
+    .artIMG {
+      margin-left: 24px;
+
+      @media (max-width: 600px) {
+        margin-left: 12px;
+      }
+    }
+  }
+}
+
+
+
+
+

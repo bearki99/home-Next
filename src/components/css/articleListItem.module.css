@@ -1,0 +1,46 @@
+.articleListItem {
+  padding: 12px 20px 0 20px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+.articleListItem:hover {
+  background-color: var(--list-hover-color);
+}
+.articleListItem .artBody {
+  display: flex;
+  width: 100%;
+  padding-bottom: 12px;
+  margin-top: 10px;
+  border-bottom: 1px solid #e5e6eb;
+}
+.articleListItem .artBody .artHead {
+  font-size: 14px;
+}
+.articleListItem .artBody .artHead .author {
+  color: var(--color);
+}
+.articleListItem .artBody .artInfo {
+  flex: 1;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-around;
+  display: flex;
+}
+.articleListItem .artBody .artInfo .artTitle {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  color: var(--color);
+}
+.articleListItem .artBody .artInfo .artContent {
+  font-size: 14px;
+  line-height: 24px;
+}
+.articleListItem .artBody .artIMG {
+  margin-left: 24px;
+}
+@media (max-width: 600px) {
+  .articleListItem .artBody .artIMG {
+    margin-left: 12px;
+  }
+}

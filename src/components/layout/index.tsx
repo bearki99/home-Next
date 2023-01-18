@@ -10,7 +10,9 @@ const Layout: React.FC<IProps> = (props) => {
   return (
     <div className="layout">
       <Header />
-      {children}
+      <div className="body">
+        {children}
+      </div>
     </div>
   );
 };

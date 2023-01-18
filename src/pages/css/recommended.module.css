@@ -1,0 +1,30 @@
+.recommendedBox {
+  padding: 0 170px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+.recommendedBox .left {
+  width: 700px;
+}
+.recommendedBox .left .artListHead {
+  padding: 15.6px 12px;
+}
+.recommendedBox .left .artListHead span {
+  cursor: pointer;
+  display: inline-block;
+  width: 56.88px;
+  text-align: center;
+  border-right: 1px solid var(--article-list-divider-color);
+}
+.recommendedBox .left .artListHead .ant-divider {
+  margin: 0 !important;
+}
+.recommendedBox .right {
+  width: 240px;
+}
+.activeType {
+  color: var(--item-active-color);
+}

@@ -1,26 +1,22 @@
-import styles from "@/styles/Home.module.less";
-import { useSelector, useDispatch } from "react-redux";
-import type { IAppDispatch, IAppState } from "@/store";
-import { incrementAction } from "@/store/modules/home";
-import { Button } from "antd";
 import MainContent from "@/pages/[label]";
+import wrapper from "@/store";
+import { GetServerSideProps } from "next";
+import { getArticlesAction } from "@/pages/[label]/store/articleList";
+
 export default function HomePage() {
-  const dispatch = useDispatch<IAppDispatch>();
-  const { counter } = useSelector((state: IAppState) => ({
-    counter: state.home.counter,
-  }));
-  function changeCounter() {
-    const newCounter = counter + 1;
-    dispatch(incrementAction(newCounter));
-  }
   return (
     <>
-      <main className={styles.title}>main-page</main>
-      <div className={styles.counter}>Redux-counter: {counter}</div>
-      <Button type="primary" onClick={changeCounter} className={styles.btn}>
-        +1
-      </Button>
       <MainContent />
     </>
   );
 }
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(function (store) {
+    const { activeType, curPage, curSize } = store.getState().articleList;
+    return async () => {
+      await store.dispatch(getArticlesAction({ page: curPage, size: curSize, label: "", type: activeType }));
+      return {
+        props: {},
+      };
+    };
+  });

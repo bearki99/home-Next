@@ -1,12 +1,8 @@
-@mainHeader: 5rem;
-@subHeader: 3.833rem;
-
 .SgtextOms {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 .textOms {
   word-break: break-word;
   text-overflow: ellipsis;
