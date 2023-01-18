@@ -1,2 +1,128 @@
 @mainHeader: 5rem;
 @subHeader: 3.833rem;
+// variable.css
+html {
+  font-size: 12px;
+  -webkit-font-smoothing: unset !important;
+  font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial !important;
+}
+
+:root.light {
+  --color: #333333;
+  --background-color: #FFFFFF;
+}
+
+:root.dark {
+  --color: #FFFFFF;
+  --background-color: #000000;
+}
+
+.catalog-list {
+  position: relative;
+  line-height: 22px;
+  padding: 0;
+  margin: 0;
+
+  & .item.active>.a-container:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    margin-top: 7px;
+    width: 4px;
+    height: 16px;
+    background: #1e80ff;
+    border-radius: 0 4px 4px 0;
+  }
+
+
+  & .item.active>.a-container {
+    color: #007fff;
+  }
+
+  & .item.d1>.a-container {
+    padding-left: 11px;
+  }
+
+  & .item.d3>.a-container {
+    padding-left: 41px;
+  }
+
+  & .item.d2>.a-container {
+    padding-left: 26px;
+  }
+
+  & .item.d3>.a-container {
+    padding-left: 41px;
+  }
+
+  [class*="item d"] {
+    margin: 0;
+    padding: 0;
+    font-size: 1.167rem;
+    font-weight: 400;
+    line-height: 22px;
+    color: #000;
+    position: relative;
+    .a-container {
+      margin: 0;
+      padding: 0 0 0 11px;
+
+      a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .catalog-aTag {
+        color: inherit;
+        display: inline-block;
+        padding: 8px;
+        width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .catalog-aTag:hover {
+        background-color: rgba(228, 230, 235, 0.3);
+      }
+    }
+  }
+
+  &>li {
+    font-weight: 400;
+    color: #000;
+    margin: 0;
+    padding: 0 0 0 11px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.167rem;
+    font-weight: 400;
+    line-height: 22px;
+    color: #333;
+    list-style: none;
+  }
+
+  &>li>a {
+    color: inherit;
+    display: inline-block;
+    padding: 8px;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+[class*="toc-link"] {
+  color: inherit;
+  display: inline-block;
+  padding: 8px;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+

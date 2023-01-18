@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
+import articleReducer from "./modules/article";
 import homeReducer from "./modules/home";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     home: homeReducer,
+    article: articleReducer,
   },
 });
 
