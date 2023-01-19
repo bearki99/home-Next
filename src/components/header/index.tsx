@@ -8,6 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeinitialIndexAction, changeIsHideAction } from "./store";
 import HeaderInput from "./c-cpns/input";
 import { throttle } from "lodash";
+import DarkBtn from "../dark-btn";
 interface IProps {
   children?: ReactNode;
   books?: any;
@@ -207,6 +208,7 @@ const Header: React.FC<IProps> = () => {
               </div>
 
               <div className={styles.rightSide}>
+                <DarkBtn/>
                 <HeaderInput />
               </div>
             </div>

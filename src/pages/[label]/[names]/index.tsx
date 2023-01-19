@@ -13,7 +13,7 @@ interface IProps {
 
 const SubContent: React.FC<IProps> = () => {
   const router = useRouter();
-  const { names } = router.query;
+  const { label, names } = router.query;
   const { homeTags, initialSubIndex } = useSelector((state: IAppState) => ({
     homeTags: state.header.homeTags,
     initialSubIndex: state.header.initialSubIndex,
@@ -23,7 +23,7 @@ const SubContent: React.FC<IProps> = () => {
       {names && <Subheader />}
       <div className={styles.mainBG}>
         <div className={styles.mainContent}>
-          {homeTags && homeTags[initialSubIndex].labels.length > 0 && (
+          {label && homeTags && homeTags[initialSubIndex] && homeTags[initialSubIndex]?.labels.length > 0 && (
             <SubShow names={names} />
           )}
         </div>

@@ -5,17 +5,20 @@ import { useRouter } from "next/router";
 import SubContent from "./[names]";
 import { shallowEqual, useSelector } from "react-redux";
 import Subheader from "@/components/subheader";
+import { IHomeColumn } from "@/components/header/store";
 interface IProps {
   children?: ReactNode;
 }
-
 const MainContent: React.FC<IProps> = () => {
   const routes = useRouter();
   const { label } = routes.query;
-  const { homeTags } = useSelector((state: any) => ({
-    homeTags: state.header.homeTags,
-  }), shallowEqual);
-  const nowTags = homeTags && homeTags.map((item: any) => item.id + "");
+  const { homeTags } = useSelector(
+    (state: any) => ({
+      homeTags: state.header.homeTags,
+    }),
+    shallowEqual
+  );
+  const nowTags = homeTags && homeTags.map((item: IHomeColumn) => item.id + "");
   if (!label || nowTags.includes(label)) {
     return (
       <>
