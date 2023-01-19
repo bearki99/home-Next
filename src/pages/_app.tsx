@@ -1,6 +1,7 @@
 import "normalize.css";
 import "antd/dist/reset.css";
 import "@/styles/globals.less";
+import "@/styles/Article.less";
 import "uno.css";
 
 import { Provider } from "react-redux";
