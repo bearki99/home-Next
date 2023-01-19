@@ -206,4 +206,6 @@ const Article: React.FC = () => {
     </div>
   );
 };
+
 export default memo(Article);
+Article.displayName = "Article";

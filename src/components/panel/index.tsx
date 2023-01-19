@@ -1,10 +1,11 @@
 import styles from "@/styles/Article.module.less";
 import { IArticleInitialState } from "@/store/modules/article";
 import { Tooltip, Badge } from "antd";
+import { memo } from "react";
 interface MyProps {
   article: IArticleInitialState
 }
-export default function Panel(props: MyProps) {
+export function Panel(props: MyProps) {
   const { article } = props;
   return (
     <div className={styles.article_panel}>
@@ -212,3 +213,6 @@ export default function Panel(props: MyProps) {
     </div>
   );
 }
+
+export default memo(Panel);
+Panel.displayName = "Panel";

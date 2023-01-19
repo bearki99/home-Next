@@ -8,15 +8,11 @@ interface MyProps {
 const Anchor: React.FC<MyProps> = (props: MyProps) => {
   const { catalogContent } = props;
   return (
-    <>
-      <div className={styles.anchor_wrapper}>
-        <div dangerouslySetInnerHTML={{ __html: catalogContent }}></div>
-      </div>
-    </>
+    <div className={styles.anchor_wrapper}>
+      <div dangerouslySetInnerHTML={{ __html: catalogContent }}></div>
+    </div>
   );
 };
-export default memo(Anchor);
-Anchor.displayName = "Anchor";
 
 export function toToc(data: string[]) {
   let levelStack: string[] = [];
@@ -55,3 +51,6 @@ export function toToc(data: string[]) {
   }
   return result;
 }
+
+export default memo(Anchor);
+Anchor.displayName = "Anchor";
