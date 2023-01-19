@@ -1,4 +1,4 @@
-import styles from '@/styles/Article.module.less'
+import styles from "@/styles/Article.module.less";
 import { IArticleInitialState } from "@/store/modules/article";
 import { Tooltip, Badge } from "antd";
 interface MyProps {
@@ -210,5 +210,5 @@ export default function Panel(props: MyProps) {
         </Tooltip>
       </div>
     </div>
-  )
+  );
 }

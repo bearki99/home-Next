@@ -12,8 +12,6 @@ import Anchor from "@/components/anchor";
 import Panel from "@/components/panel";
 import { marked } from "marked";
 import { toToc } from "@/components/anchor";
-import _ from "lodash";
-import { nextTick } from "process";
 const Article: React.FC = () => {
   const [article, setArticle] = useState<IArticleInitialState>({} as IArticleInitialState);
   const catalogContent = useRef<string>("");
@@ -28,7 +26,7 @@ const Article: React.FC = () => {
     if (!router.isReady || renderContent.current || catalogContent.current) return;
     const getData = async () => {
       await getArticle(router.query.id as string, dispatch);
-      setArticle({ ...store.getState().article, content: '# 阿瑟 \n 阿瑟多回家看看坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷 \n # 阿瑟 撒谎的健康坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷坎坎坷坷看看·' });
+      setArticle({ ...store.getState().article});
       let data = marked.parse(article.content || "");
       const toc = data.match(/<[hH][1-6].*?>.*?<\/[hH][1-6].*?>/g) as string[];
       toc?.forEach((item: string, index: number) => {
@@ -39,7 +37,6 @@ const Article: React.FC = () => {
       renderContent.current = data;
     };
     const routeChange = () => {
-      console.log("~~~~~~~~~~~~~~~~~~~")
       const itemList = catalogRef.current?.getElementsByClassName(
         "item"
       ) as HTMLCollection;
@@ -56,7 +53,6 @@ const Article: React.FC = () => {
       for (let i = 0; i < divList.length; i++) {
         const child = divList[i] as HTMLElement;
         if ("#" + child.getAttribute("data-id") === location.hash) {
-          console.log(location.hash, child.offsetTop)
           window.scrollTo({
             top: child.offsetTop,
           });
@@ -98,16 +94,12 @@ const Article: React.FC = () => {
         }
       }
     };
-    nextTick(() => {
-      getData();
-      // 初始化监控hash todo
-      routeChange();
-    });
     window.addEventListener("hashchange", routeChange);
-    window.addEventListener("scroll", _.throttle(handleScroll, 0));
-    return () => {
-      // 移除监听 todo
-    };
+    window.addEventListener("scroll", handleScroll);
+    getData();
+    setTimeout(() => {
+      routeChange();
+    }, 1000);
   }, [router.isReady, article, dispatch, router.query.id]);
   return (
     <div className={styles.view_container}>
@@ -120,7 +112,7 @@ const Article: React.FC = () => {
               <div className={styles.author_info_wrapper}>
                 {article.author?.avatar && <Image
                   className={styles.author_img}
-                  src={article.author?.avatar || ''}
+                  src={article.author?.avatar}
                   alt="个人头像"
                   width="100"
                   height="100"
@@ -141,7 +133,7 @@ const Article: React.FC = () => {
               <div className={styles.background_box}>
                 {article?.image && <Image
                   className={styles.article_background}
-                  src={article?.image || ''}
+                  src={article?.image}
                   alt="文章背景"
                   width="400"
                   height="400"
@@ -159,7 +151,7 @@ const Article: React.FC = () => {
             <div className={styles.author_block}>
               {article.author?.avatar && <Image
                 className={styles.author_img}
-                src={article.author?.avatar || ''}
+                src={article.author?.avatar}
                 alt="个人头像"
                 width="100"
                 height="100"
@@ -200,13 +192,14 @@ const Article: React.FC = () => {
                 })}
               </div>
             </div>
-            <div ref={articleCatalogRef} className={styles.article_catalog}>
+            {catalogContent.current !== "" && <div ref={articleCatalogRef} className={styles.article_catalog}>
               <div className={styles.catalog_title}>目录</div>
               <div ref={catalogRef} className={styles.catalog}>
                 {/* todo Anchor 组件 */}
                 <Anchor catalogContent={catalogContent.current} />
               </div>
-            </div>
+            </div>}
+
           </div>
         </div>
       </div>
