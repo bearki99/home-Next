@@ -119,9 +119,9 @@ const Article: React.FC<IProps> = (props: IProps) => {
                 </div>
               </div>
               <div className={styles.background_box}>
-                {article && <Image
+                {article.image && <Image
                   className={styles.article_background}
-                  src={article.image || ""}
+                  src={article.image}
                   alt="文章背景"
                   width="400"
                   height="400"
