@@ -3,7 +3,7 @@ import Subheader from "@/components/subheader";
 import SubShow from "@/components/subshow";
 import { IAppState } from "@/store";
 import { useRouter } from "next/router";
-import React, { ReactNode} from "react";
+import React, { ReactNode } from "react";
 import { memo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import styles from "./style.module.less";
@@ -14,11 +14,13 @@ interface IProps {
 const SubContent: React.FC<IProps> = () => {
   const router = useRouter();
   const { label, names } = router.query;
-
-  const { homeTags, initialSubIndex } = useSelector((state: IAppState) => ({
-    homeTags: state.header.homeTags,
-    initialSubIndex: state.header.initialSubIndex,
-  }), shallowEqual);
+  const { homeTags, initialSubIndex } = useSelector(
+    (state: IAppState) => ({
+      homeTags: state.header.homeTags,
+      initialSubIndex: state.header.initialSubIndex,
+    }),
+    shallowEqual
+  );
   return (
     <>
       {homeTags && names && <Subheader />}

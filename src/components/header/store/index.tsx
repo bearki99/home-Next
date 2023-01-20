@@ -8,9 +8,6 @@ export interface IHomeColumn {
   name: string;
 }
 
-/**
- * 文章标签
- */
 export interface ISubTags {
   id: number;
   label: string;

@@ -5,9 +5,6 @@ import { useRouter } from "next/router";
 import { shallowEqual, useSelector } from "react-redux";
 import Subheader from "@/components/subheader/index";
 import SubContent from "./[names]/index";
-// import wrapper from "@/store";
-// import { GetServerSideProps } from "next";
-// import { getHeaderDataAction } from "@/components/header/store";
 interface IProps {
   children?: ReactNode;
 }
