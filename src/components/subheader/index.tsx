@@ -28,9 +28,9 @@ const SubHeader: React.FC<IProps> = () => {
     debounce(() => setShowSubTags(true), 500),
     []
   );
-  const hideTag = () => {
+  const hideTag = useCallback(() => {
     setShowSubTags(false);
-  };
+  }, [showSubTags]);
   const handleClick = (item: any) => {
     dispatch(changecurrentsubTagsAction(item));
   };

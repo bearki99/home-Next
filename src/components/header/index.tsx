@@ -1,13 +1,21 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import data from "@/assets/data/header-data.json";
 import styles from "./header.module.less";
 import Link from "next/link";
 import Image from "next/image";
+import { memo } from "react";
 import classNames from "classnames";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeinitialIndexAction, changeIsHideAction } from "./store";
 import HeaderInput from "./c-cpns/input";
 import { throttle } from "lodash";
+import DarkBtn from "../dark-btn";
 interface IProps {
   children?: ReactNode;
   books?: any;
@@ -26,9 +34,12 @@ const Header: React.FC<IProps> = () => {
     }),
     shallowEqual
   );
-  function changeCurrentIndex(index: number) {
-    dispatch(changeinitialIndexAction(index));
-  }
+  const changeCurrentIndex = useCallback(
+    (index: number) => {
+      dispatch(changeinitialIndexAction(index));
+    },
+    [initialIndex, dispatch]
+  );
   function handleClickMenu() {
     setClickMenu(!clickMenu);
   }
@@ -207,6 +218,7 @@ const Header: React.FC<IProps> = () => {
               </div>
 
               <div className={styles.rightSide}>
+                <DarkBtn />
                 <HeaderInput />
               </div>
             </div>
@@ -217,5 +229,5 @@ const Header: React.FC<IProps> = () => {
   );
 };
 
-export default Header;
+export default memo(Header);
 Header.displayName = "Header";

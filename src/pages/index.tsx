@@ -1,7 +1,9 @@
 import MainContent from "@/pages/[label]";
 import wrapper from "@/store";
 import { GetServerSideProps } from "next";
-import { getHeaderDataAction } from "@/components/header/store";
+import {
+  getHeaderDataAction, getAdvertiseDataAction
+} from "@/components/header/store";
 export default function HomePage() {
   return (
     <>
@@ -10,10 +12,12 @@ export default function HomePage() {
   );
 }
 HomePage.displayName = "HomePage";
+
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async () => {
       await store.dispatch(getHeaderDataAction());
+      await store.dispatch(getAdvertiseDataAction());
       return {
         props: {},
       };
