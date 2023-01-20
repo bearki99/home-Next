@@ -1,41 +1,26 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { memo } from "react";
-import { useDispatch } from "react-redux";
-import { getArticle } from "@/store/modules/article";
-import { store } from "@/store";
+import wrapper from "@/store";
+import { getArticleByIdAction } from "@/store/modules/article";
 import { IArticleInitialState } from "@/store/modules/article";
-import { IAppDispatch } from "@/store";
 import Image from "next/image";
 import styles from "@/styles/Article.module.less";
 import Anchor from "@/components/anchor";
 import Panel from "@/components/panel";
 import { marked } from "marked";
 import { toToc } from "@/components/anchor";
-const Article: React.FC = () => {
-  const [article, setArticle] = useState<IArticleInitialState>({} as IArticleInitialState);
-  const catalogContent = useRef<string>("");
-  const renderContent = useRef<string>("");
+import { GetServerSideProps } from "next";
+interface IProps {
+  article: IArticleInitialState,
+  catalogContent: string,
+  renderContent: string
+}
+const Article: React.FC<IProps> = (props: IProps) => {
+  const { article, catalogContent, renderContent } = props;
   const articleRef = useRef<HTMLDivElement | null>(null);
   const catalogRef = useRef<HTMLDivElement | null>(null);
   const articleCatalogRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
-  const dispatch = useDispatch<IAppDispatch>();
   useEffect(() => {
-    // useEffect响应两次 优化 todo
-    if (!router.isReady || renderContent.current || catalogContent.current) return;
-    const getData = async () => {
-      await getArticle(router.query.id as string, dispatch);
-      setArticle({ ...store.getState().article});
-      let data = marked.parse(article.content || "");
-      const toc = data.match(/<[hH][1-6].*?>.*?<\/[hH][1-6].*?>/g) as string[];
-      toc?.forEach((item: string, index: number) => {
-        let _toc = `<div data-id="heading-${index}">${item} </div>`;
-        data = data.replace(item, _toc);
-      });
-      catalogContent.current = toToc(toc);
-      renderContent.current = data;
-    };
     const routeChange = () => {
       const itemList = catalogRef.current?.getElementsByClassName(
         "item"
@@ -59,8 +44,8 @@ const Article: React.FC = () => {
         }
       }
     };
-    const handleScroll = (e: any) => {
-      if (e.path[1].pageYOffset >= 560) {
+    const handleScroll = () => {
+      if (window.scrollY >= 560) {
         (articleCatalogRef.current as any).style.position = "fixed";
       } else {
         (articleCatalogRef.current as any).style.position = "relative";
@@ -77,8 +62,8 @@ const Article: React.FC = () => {
       let i = 0;
       for (; i < titleList.length - 1; i++) {
         if (
-          e.path[1].pageYOffset >= titleList[i] &&
-          e.path[1].pageYOffset < titleList[i + 1]
+          window.scrollY >= titleList[i] &&
+          window.scrollY < titleList[i + 1]
         ) {
           break;
         }
@@ -91,16 +76,20 @@ const Article: React.FC = () => {
         child.classList.remove("active");
         if (i === j) {
           child.classList.add("active");
+          location.hash = `#heading-${i}`;
         }
       }
     };
     window.addEventListener("hashchange", routeChange);
     window.addEventListener("scroll", handleScroll);
-    getData();
     setTimeout(() => {
       routeChange();
-    }, 1000);
-  }, [router.isReady, article, dispatch, router.query.id]);
+    });
+    return () => {
+      window.removeEventListener("hashchange", routeChange);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div className={styles.view_container}>
       <div className={styles.main_container}>
@@ -108,32 +97,31 @@ const Article: React.FC = () => {
         <div className={styles.column_view}>
           <div className={styles.article_area}>
             <article className={styles.article}>
-              <h1 className={styles.article_title}>{article.title}</h1>
+              <h1 className={styles.article_title}>{article && article.title}</h1>
               <div className={styles.author_info_wrapper}>
-                {article.author?.avatar && <Image
+                {article && <Image
                   className={styles.author_img}
-                  src={article.author?.avatar}
+                  src={article.author.avatar}
                   alt="个人头像"
                   width="100"
                   height="100"
                 />}
                 <div className={styles.author_info_box}>
                   <div className={styles.author_name}>
-                    <span>{article.author?.username}</span>
+                    <span>{article && article.author.username}</span>
                   </div>
                   <div className={styles.meta_box}>
-                    <span className={styles.time}>{article.time}</span>
+                    <span className={styles.time}>{article && article.time}</span>
                     <span className={styles.view_count}>
-                      {" "}
-                      阅读 {article.view_count}
+                      {article && ` 阅读 ${article.view_count}`}
                     </span>
                   </div>
                 </div>
               </div>
               <div className={styles.background_box}>
-                {article?.image && <Image
+                {article && <Image
                   className={styles.article_background}
-                  src={article?.image}
+                  src={article.image || ""}
                   alt="文章背景"
                   width="400"
                   height="400"
@@ -143,32 +131,32 @@ const Article: React.FC = () => {
                 style={{ whiteSpace: "pre-line" }}
                 className={styles.article_content}
                 ref={articleRef}
-                dangerouslySetInnerHTML={{ __html: renderContent.current }}
+                dangerouslySetInnerHTML={{ __html: renderContent }}
               ></div>
             </article>
           </div>
           <div className={styles.article_sidebar}>
             <div className={styles.author_block}>
-              {article.author?.avatar && <Image
+              {article && <Image
                 className={styles.author_img}
-                src={article.author?.avatar}
+                src={article.author.avatar}
                 alt="个人头像"
                 width="100"
                 height="100"
               />}
               <div className={styles.info_box}>
                 <span className={styles.username}>
-                  {article.author?.username}
+                  {article && article.author.username}
                 </span>
                 <span className={styles.description}>
-                  {article.author?.description}
+                  {article && article.author.description}
                 </span>
               </div>
             </div>
             <div className={styles.related_articles}>
               <div className={styles.block_title}>相关文章</div>
               <div className={styles.entry_list}>
-                {article.related_articles?.map((article) => {
+                {article && article.related_articles.map((article) => {
                   return (
                     <>
                       <div className={styles.item}>
@@ -192,11 +180,11 @@ const Article: React.FC = () => {
                 })}
               </div>
             </div>
-            {catalogContent.current !== "" && <div ref={articleCatalogRef} className={styles.article_catalog}>
+            {catalogContent !== "" && <div ref={articleCatalogRef} className={styles.article_catalog}>
               <div className={styles.catalog_title}>目录</div>
               <div ref={catalogRef} className={styles.catalog}>
                 {/* todo Anchor 组件 */}
-                <Anchor catalogContent={catalogContent.current} />
+                <Anchor catalogContent={catalogContent} />
               </div>
             </div>}
 
@@ -206,6 +194,23 @@ const Article: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(function (store) {
+  return async (context: any) => {
+    await store.dispatch(getArticleByIdAction(context.query.id));
+    const article = store.getState().article;
+    let data = marked.parse(article.content || "");
+    const toc = data.match(/<[hH][1-6].*?>.*?<\/[hH][1-6].*?>/g) as string[];
+    toc?.forEach((item: string, index: number) => {
+      let _toc = `<div data-id="heading-${index}">${item} </div>`;
+      data = data.replace(item, _toc);
+    });
+    const catalogContent = toToc(toc);
+    return {
+      props: { article, catalogContent, renderContent: data },
+    };
+  };
+});
 
 export default memo(Article);
 Article.displayName = "Article";

@@ -1,18 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { IAppDispatch } from "../index";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getArticleById } from "@/service/article";
 export interface IArticleInitialState {
   author: IAuthorInitialState;
-  comment_count: string;
+  comment_count: number;
   content: string;
   image?: string;
   label: string;
-  like_count: string;
+  like_count: number;
   time: string;
   title: string;
   uid: string;
-  view_count: string;
-  id: string;
+  view_count: number;
+  id: number;
   related_articles: Array<Record<string, any>>;
 }
 
@@ -23,32 +22,35 @@ export interface IArticleResponse {
 }
 
 export interface IAuthorInitialState {
-  article_count: string;
+  article_count: number;
   avatar: string;
   description: string;
-  uid: string;
+  id: number;
   username: string;
 }
-// 外部的 thunk creator 函数
-export const getArticle = async (id: string, dispatch: IAppDispatch) => {
-  try {
-    // thunk 内发起异步数据请求
+
+export const getArticleByIdAction = createAsyncThunk(
+  "article",
+  async (id: string) => {
     const res = await getArticleById(id);
-    // 但数据响应完成后 dispatch 一个 action
-    dispatch(articleLoaded(res.data));
-  } catch (err) {
-    // 如果过程出错，在这里处理
-    console.log(err);
+    return res.data;
   }
-};
+);
 
 const articleSlice = createSlice({
   name: "article",
   initialState: {} as IArticleInitialState,
   reducers: {
     articleLoaded: (state, action) => {
+      state = action.payload;
       return action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(getArticleByIdAction.fulfilled, (state, action) => {
+      state = action.payload;
+      return action.payload;
+    });
   },
 });
 

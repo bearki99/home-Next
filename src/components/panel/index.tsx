@@ -2,10 +2,10 @@ import styles from "@/styles/Article.module.less";
 import { IArticleInitialState } from "@/store/modules/article";
 import { Tooltip, Badge } from "antd";
 import { memo } from "react";
-interface MyProps {
+interface IProps {
   article: IArticleInitialState
 }
-export function Panel(props: MyProps) {
+export function Panel(props: IProps) {
   const { article } = props;
   return (
     <div className={styles.article_panel}>
@@ -164,16 +164,16 @@ export function Panel(props: MyProps) {
         </symbol>
       </svg>
       <div>
-        <Badge count={article.like_count} color="#c2c8d1" offset={[0, 8]}>
+        {article && <Badge count={article.like_count} color="#c2c8d1" offset={[0, 8]}>
           <div className={styles.panel_btn}>
             <svg className={styles.sprite_icon}>
               <use href="#icon-zan"></use>
             </svg>
           </div>
-        </Badge>
+        </Badge>}
       </div>
       <div>
-        <Badge
+        {article && <Badge
           count={article.comment_count}
           color="#c2c8d1"
           offset={[0, 8]}
@@ -183,7 +183,8 @@ export function Panel(props: MyProps) {
               <use href="#icon-comment"></use>
             </svg>
           </div>
-        </Badge>
+        </Badge>}
+
       </div>
       <div className={styles.panel_btn}>
         <svg className={styles.sprite_icon}>
