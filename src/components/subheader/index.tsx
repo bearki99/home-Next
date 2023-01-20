@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useState } from "react";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.less";
 import Link from "next/link";
 import classNames from "classnames";
@@ -14,11 +14,14 @@ interface IProps {
   children?: ReactNode;
 }
 const SubHeader: React.FC<IProps> = () => {
-  let { homeTags, initialSubIndex, isHide } = useSelector((state: any) => ({
-    homeTags: state.header.homeTags,
-    initialSubIndex: state.header.initialSubIndex,
-    isHide: state.header.isHide,
-  }));
+  let { homeTags, initialSubIndex, isHide } = useSelector(
+    (state: any) => ({
+      homeTags: state.header.homeTags,
+      initialSubIndex: state.header.initialSubIndex,
+      isHide: state.header.isHide,
+    }),
+    shallowEqual
+  );
   const dispatch = useDispatch();
   const [showSubTags, setShowSubTags] = useState(false);
   const [currentIndex, changeIdx] = useState(-1);
@@ -31,9 +34,12 @@ const SubHeader: React.FC<IProps> = () => {
   const hideTag = useCallback(() => {
     setShowSubTags(false);
   }, [showSubTags]);
-  const handleClick = (item: any) => {
-    dispatch(changecurrentsubTagsAction(item));
-  };
+  const handleClick = useCallback(
+    (item: any) => {
+      dispatch(changecurrentsubTagsAction(item));
+    },
+    [dispatch]
+  );
   return (
     <div className={styles.mysubHeader}>
       <div
@@ -86,7 +92,7 @@ const SubHeader: React.FC<IProps> = () => {
                         )}
                       >
                         <div className={styles.tagList}>
-                          {item &&
+                          {item && item.labels && 
                             item.labels.map((elem: any) => {
                               return (
                                 <div

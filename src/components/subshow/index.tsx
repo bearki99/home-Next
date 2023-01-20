@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styles from "./style.module.less";
 import Link from "next/link";
 import classNames from "classnames";
@@ -19,7 +19,10 @@ const SubShow: React.FC<IProps> = () => {
   const { currentsubTags, showAll } = useSelector((state: IAppState) => ({
     currentsubTags: state.header.currentsubTags,
     showAll: state.header.showAll,
-  }));
+  }), shallowEqual);
+  const changeshow = useCallback(() => {
+    dispatch(changeShowAllAction(true));
+  }, [dispatch]);
   return (
     <div className={styles.subshow}>
       <div className={styles.container}>
@@ -72,9 +75,7 @@ const SubShow: React.FC<IProps> = () => {
         {!showAll && currentsubTags?.length >= 9 && (
           <div
             className={classNames([styles.item], [styles.allBtn])}
-            onClick={() => {
-              dispatch(changeShowAllAction(true));
-            }}
+            onClick={changeshow}
           >
             <span>全部</span>
           </div>

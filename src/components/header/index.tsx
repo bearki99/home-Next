@@ -12,7 +12,7 @@ import Image from "next/image";
 import { memo } from "react";
 import classNames from "classnames";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { changeinitialIndexAction, changeIsHideAction } from "./store";
+import { changeIsHideAction } from "./store";
 import HeaderInput from "./c-cpns/input";
 import { throttle } from "lodash";
 import DarkBtn from "../dark-btn";
@@ -26,31 +26,34 @@ const LogoSrc =
 const Header: React.FC<IProps> = () => {
   const dispatch = useDispatch();
   const [clickMenu, setClickMenu] = useState(false);
+  const [initialIndex, setIndex] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { initialIndex, isHide } = useSelector(
+  const { isHide } = useSelector(
     (state: any) => ({
-      initialIndex: state.header.initialIndex,
       isHide: state.header.isHide,
     }),
     shallowEqual
   );
   const changeCurrentIndex = useCallback(
     (index: number) => {
-      dispatch(changeinitialIndexAction(index));
+      setIndex(index);
     },
-    [initialIndex, dispatch]
+    [initialIndex]
   );
-  function handleClickMenu() {
+  const handleClickMenu = useCallback(() => {
     setClickMenu(!clickMenu);
-  }
+  }, [clickMenu]);
   //增加点击监听
-  function clickCallback(event: any) {
-    if (menuRef.current && menuRef.current.contains(event.target)) {
-      return;
-    } else {
-      setClickMenu(false);
-    }
-  }
+  const clickCallback = useCallback(
+    (event: any) => {
+      if (menuRef.current && menuRef.current.contains(event.target)) {
+        return;
+      } else {
+        setClickMenu(false);
+      }
+    },
+    [clickMenu]
+  );
   useEffect(() => {
     if (clickMenu) {
       document.addEventListener("click", clickCallback, false);

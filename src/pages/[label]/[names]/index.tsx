@@ -5,7 +5,7 @@ import { IAppState } from "@/store";
 import { useRouter } from "next/router";
 import React, { ReactNode} from "react";
 import { memo } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import styles from "./style.module.less";
 interface IProps {
   children?: ReactNode;
@@ -18,7 +18,7 @@ const SubContent: React.FC<IProps> = () => {
   const { homeTags, initialSubIndex } = useSelector((state: IAppState) => ({
     homeTags: state.header.homeTags,
     initialSubIndex: state.header.initialSubIndex,
-  }));
+  }), shallowEqual);
   return (
     <>
       {homeTags && names && <Subheader />}
