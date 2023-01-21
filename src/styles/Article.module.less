@@ -9,7 +9,7 @@
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .column_view {
@@ -50,31 +50,49 @@
   background-color: inherit;
 }
 
-
 .sprite_icon {
   width: 1em;
   height: 100%;
   fill: currentColor;
   vertical-align: middle;
-  transition: all .15s linear;
+  transition: all 0.15s linear;
   color: #8a919f;
+  font-size: 20px;
 }
 
-// .sprite_icon::after {
-//   content: attr(badge);
-//   position: absolute;
-//   top: 0;
-//   left: 75%;
-//   height: 17px;
-//   line-height: 17px;
-//   padding: 0 5px;
-//   border-radius: 9px;
-//   font-size: 11px;
-//   text-align: center;
-//   white-space: nowrap;
-//   background-color: #c2c8d1;
-//   color: #fff;
-// }
+.share_popup {
+  display: block;
+  top: 0;
+  flex-direction: column;
+  left: calc(100% + 14px);
+  z-index: 30;
+  background: #fff;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.share_ul {
+  padding: 0;
+  margin: 0;
+}
+
+.share_li {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0;
+  list-style: none;
+  cursor: pointer;
+  color: rgb(81, 87, 103);
+}
+
+.share_li:hover {
+  background-color: #f2f3f5;
+}
 
 .panel_btn {
   position: relative;
@@ -114,7 +132,6 @@
   .view_container .main_container {
     margin-left: 0;
   }
-
 }
 
 @media (min-width: 1140px) {
@@ -216,6 +233,7 @@
   color: #8a919f;
   margin-top: 2px;
   line-height: 22px;
+  white-space: pre-line;
 }
 
 .background_box {

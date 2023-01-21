@@ -13,10 +13,11 @@ import { GetServerSideProps } from "next";
 interface IProps {
   article: IArticleInitialState,
   catalogContent: string,
-  renderContent: string
+  renderContent: string,
+  articleTime: string
 }
 const Article: React.FC<IProps> = (props: IProps) => {
-  const { article, catalogContent, renderContent } = props;
+  const { article, catalogContent, renderContent, articleTime } = props;
   const articleRef = useRef<HTMLDivElement | null>(null);
   const catalogRef = useRef<HTMLDivElement | null>(null);
   const articleCatalogRef = useRef<HTMLDivElement | null>(null);
@@ -82,9 +83,7 @@ const Article: React.FC<IProps> = (props: IProps) => {
     };
     window.addEventListener("hashchange", routeChange);
     window.addEventListener("scroll", handleScroll);
-    setTimeout(() => {
-      routeChange();
-    });
+    routeChange();
     return () => {
       window.removeEventListener("hashchange", routeChange);
       window.removeEventListener("scroll", handleScroll);
@@ -111,10 +110,11 @@ const Article: React.FC<IProps> = (props: IProps) => {
                     <span>{article && article.author.username}</span>
                   </div>
                   <div className={styles.meta_box}>
-                    <span className={styles.time}>{article && article.time}</span>
+                    <span className={styles.time}>{articleTime}</span>
                     <span className={styles.view_count}>
-                      {article && ` 阅读 ${article.view_count}`}
+                      &nbsp;&nbsp;·&nbsp;&nbsp;阅读  {article.view_count}
                     </span>
+
                   </div>
                 </div>
               </div>
@@ -199,6 +199,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   return async (context: any) => {
     await store.dispatch(getArticleByIdAction(context.query.id));
     const article = store.getState().article;
+    const articleTime = article.time.replace("-", "年").replace("-", "月").replace(" ", "日 ").substring(0, article.time.lastIndexOf(":") + 1);
     let data = marked.parse(article.content || "");
     const toc = data.match(/<[hH][1-6].*?>.*?<\/[hH][1-6].*?>/g) as string[];
     toc?.forEach((item: string, index: number) => {
@@ -207,7 +208,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     });
     const catalogContent = toToc(toc);
     return {
-      props: { article, catalogContent, renderContent: data },
+      props: { article, catalogContent, renderContent: data, articleTime },
     };
   };
 });

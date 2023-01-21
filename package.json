@@ -13,7 +13,6 @@
     "@bytemd/react": "^1.20.0",
     "@next/font": "13.1.2",
     "@reduxjs/toolkit": "^1.9.1",
-    "@shapeng1998/eslint-config": "^1.0.0",
     "@types/lodash": "^4.14.191",
     "@types/marked": "^4.0.8",
     "@types/node": "18.11.18",
@@ -32,8 +31,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
-    "showdown": "^2.1.0",
-    "typed-css-modules": "^0.7.2",
     "typescript": "4.9.4"
   },
   "devDependencies": {

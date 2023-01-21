@@ -1,12 +1,39 @@
 import styles from "@/styles/Article.module.less";
 import { IArticleInitialState } from "@/store/modules/article";
-import { Tooltip, Badge } from "antd";
+import { Tooltip, Badge, Popover } from "antd";
 import { memo } from "react";
 interface IProps {
   article: IArticleInitialState
 }
 export function Panel(props: IProps) {
   const { article } = props;
+  const share_content = (
+    <div className={styles.share_popup}>
+      <ul className={styles.share_ul}>
+        <li className={styles.share_li}>
+          <svg className={styles.sprite_icon}>
+            <use href="#icon-wechat"></use>
+          </svg>
+          <span>&nbsp;&nbsp;</span>
+          <span>微信</span>
+        </li>
+        <li className={styles.share_li}>
+          <svg className={styles.sprite_icon}>
+            <use href="#icon-weibo"></use>
+          </svg>
+          <span>&nbsp;&nbsp;</span>
+          <span>新浪微博</span>
+        </li>
+        <li className={styles.share_li}>
+          <svg className={styles.sprite_icon}>
+            <use href="#icon-qq"></use>
+          </svg>
+          <span>&nbsp;&nbsp;</span>
+          <span>QQ</span>
+        </li>
+      </ul>
+    </div>
+  );
   return (
     <div className={styles.article_panel}>
       <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
@@ -191,13 +218,13 @@ export function Panel(props: IProps) {
           <use href="#icon-collect"></use>
         </svg>
       </div>
-
-      <div className={styles.panel_btn}>
-        {/* todo 下拉菜单 */}
-        <svg className={styles.sprite_icon}>
-          <use href="#icon-share"></use>
-        </svg>
-      </div>
+      <Popover content={share_content} placement="rightTop" trigger="hover" >
+        <div className={styles.panel_btn}>
+          <svg className={styles.sprite_icon}>
+            <use href="#icon-share"></use>
+          </svg>
+        </div>
+      </Popover>
       <div className={styles.divider}></div>
       <div className={styles.panel_btn}>
         <svg className={styles.sprite_icon}>
