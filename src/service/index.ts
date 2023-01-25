@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios";
 
-const BASE_URL = "http://127.0.0.1:4523/m1/2202148-0-default/"; //服务器地址
-const TIME_OUT = 1000 * 60;
+const BASE_URL = "http://47.96.134.75:3000/"; //服务器地址
+const TIME_OUT = 1000 * 8;
 
 class myRequest {
   instance: AxiosInstance;

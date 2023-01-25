@@ -8,6 +8,7 @@ export interface IArticleInitialState {
   label: string;
   like_count: number;
   time: string;
+  theme: string,
   title: string;
   uid: string;
   view_count: number;

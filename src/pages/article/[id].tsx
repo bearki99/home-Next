@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import wrapper from "@/store";
-import { getArticleByIdAction } from "@/store/modules/article";
-import { IArticleInitialState } from "@/store/modules/article";
+import { getArticleByIdAction, IArticleInitialState } from "@/store/modules/article";
 import Image from "next/image";
 import styles from "@/styles/Article.module.less";
 import Anchor from "@/components/anchor";
@@ -10,17 +8,19 @@ import Panel from "@/components/panel";
 import { marked } from "marked";
 import { toToc } from "@/components/anchor";
 import { GetServerSideProps } from "next";
+import DynamicThemeComponents from "@/styles/themes";
 interface IProps {
   article: IArticleInitialState,
   catalogContent: string,
   renderContent: string,
-  articleTime: string
+  articleTime: string,
 }
 const Article: React.FC<IProps> = (props: IProps) => {
   const { article, catalogContent, renderContent, articleTime } = props;
   const articleRef = useRef<HTMLDivElement | null>(null);
   const catalogRef = useRef<HTMLDivElement | null>(null);
   const articleCatalogRef = useRef<HTMLDivElement | null>(null);
+  const DynamicComponent = DynamicThemeComponents[article.theme];
   useEffect(() => {
     const routeChange = () => {
       const itemList = catalogRef.current?.getElementsByClassName(
@@ -127,12 +127,16 @@ const Article: React.FC<IProps> = (props: IProps) => {
                   height="400"
                 />}
               </div>
-              <div
-                style={{ whiteSpace: "pre-line" }}
-                className={styles.article_content}
-                ref={articleRef}
-                dangerouslySetInnerHTML={{ __html: renderContent }}
-              ></div>
+              <div className="markdown-body">
+                <DynamicComponent />
+                <div
+                  style={{ whiteSpace: "pre-line" }}
+                  className={styles.article_content}
+                  ref={articleRef}
+                  dangerouslySetInnerHTML={{ __html: renderContent }}
+                >
+                </div>
+              </div>
             </article>
           </div>
           <div className={styles.article_sidebar}>
@@ -183,7 +187,6 @@ const Article: React.FC<IProps> = (props: IProps) => {
             {catalogContent !== "" && <div ref={articleCatalogRef} className={styles.article_catalog}>
               <div className={styles.catalog_title}>目录</div>
               <div ref={catalogRef} className={styles.catalog}>
-                {/* todo Anchor 组件 */}
                 <Anchor catalogContent={catalogContent} />
               </div>
             </div>}
