@@ -58,7 +58,7 @@ const SubShow: React.FC<IProps> = (props) => {
                   key={item.label}
                   className={classNames(
                     {
-                      [styles.activeItem]: names == item.id,
+                      [styles.activeItem]: names == item.label,
                     },
                     [styles.item]
                   )}
