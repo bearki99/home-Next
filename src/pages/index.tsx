@@ -1,25 +1,34 @@
 import MainContent from "@/pages/[label]";
 import wrapper from "@/store";
 import { GetServerSideProps } from "next";
-import {
-  getHeaderDataAction, getAdvertiseDataAction
-} from "@/components/header/store";
-export default function HomePage() {
+import { getHeaderTags, getOriginHeader } from "@/components/header/service";
+import { getAdvertiseData } from "@/components/advertise/service";
+interface IProps {
+  homeTags: any[];
+  advertiseData: any[];
+}
+export default function HomePage(props: IProps) {
+  const { homeTags, advertiseData } = props;
   return (
     <>
-      <MainContent />
+      <MainContent homeTags={homeTags} advertiseData={advertiseData}/>
     </>
   );
 }
 HomePage.displayName = "HomePage";
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
+  wrapper.getServerSideProps(function () {
     return async () => {
-      await store.dispatch(getHeaderDataAction());
-      await store.dispatch(getAdvertiseDataAction());
+      const res = await getOriginHeader();
+      const homeTags = await getHeaderTags();
+      const advertiseData = await getAdvertiseData();
       return {
-        props: {},
+        props: {
+          originHeader: res || [],
+          homeTags: homeTags.data || [],
+          advertiseData: advertiseData.data || [],
+        },
       };
     };
   });

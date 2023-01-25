@@ -50,17 +50,25 @@
   color: var(--subheader-text-color);
   text-decoration: none;
 }
+.allItems {
+  position: relative;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 1.16rem;
+}
 .allItems:first-child {
   .subheadItem {
     padding-left: 0;
   }
 }
 .subheadItem:hover {
-  color: var(----active-color);
+  color: var(--active-color);
 }
 .text {
-  display: inline-block;
-  min-width: 2.5rem;
+  // display: inline-block;
+  // min-width: 2.5rem;
 }
 .lastsubheadItem {
   position: absolute;
@@ -71,6 +79,7 @@
   position: fixed;
   z-index: 250;
   padding: 1.17rem 1.17rem 0.17rem;
+  top: 3.5rem;
   width: 30rem;
   max-height: 16.67rem;
   font-weight: 400;
@@ -92,7 +101,6 @@
 .hide {
   opacity: 0;
   visibility: hidden !important;
-
 }
 .show {
   opacity: 1;

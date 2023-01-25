@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import data from "@/assets/data/header-data.json";
 import styles from "./header.module.less";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,12 +17,13 @@ import { throttle } from "lodash";
 import DarkBtn from "../dark-btn";
 interface IProps {
   children?: ReactNode;
-  books?: any;
+  originHeader?: any;
 }
 const LogoSrc =
   "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg";
 
-const Header: React.FC<IProps> = () => {
+const Header: React.FC<IProps> = (props) => {
+  const { originHeader } = props;
   const dispatch = useDispatch();
   const [clickMenu, setClickMenu] = useState(false);
   const [initialIndex, setIndex] = useState(0);
@@ -34,12 +34,9 @@ const Header: React.FC<IProps> = () => {
     }),
     shallowEqual
   );
-  const changeCurrentIndex = useCallback(
-    (index: number) => {
-      setIndex(index);
-    },
-    [initialIndex]
-  );
+  const changeCurrentIndex = (index: number) => {
+    setIndex(index);
+  };
   const handleClickMenu = useCallback(() => {
     setClickMenu(!clickMenu);
   }, [clickMenu]);
@@ -103,7 +100,7 @@ const Header: React.FC<IProps> = () => {
     return () => {
       window.removeEventListener("scroll", bindHandleScroll);
     };
-  }, []);
+  }, [bindHandleScroll]);
 
   return (
     <>
@@ -131,12 +128,12 @@ const Header: React.FC<IProps> = () => {
             <div className={styles.nav}>
               <div className={styles.navList}>
                 <div className={styles.navPanigate}>
-                  {data &&
-                    data.map((item: any, index: number) => {
+                  {originHeader &&
+                    originHeader.map((item: any, index: number) => {
                       return (
                         <div
                           className={styles.panigateItem}
-                          key={item.url}
+                          key={item.id}
                           onClick={() => changeCurrentIndex(index)}
                         >
                           <Link
@@ -190,9 +187,9 @@ const Header: React.FC<IProps> = () => {
                       styles.phoneMenuDetail
                     )}
                   >
-                    {data &&
-                      data
-                        .slice(0, data.length - 2)
+                    {originHeader &&
+                      originHeader
+                        .slice(0, originHeader.length - 2)
                         .map((item: any, index: number) => {
                           return (
                             <Link
@@ -213,6 +210,11 @@ const Header: React.FC<IProps> = () => {
                               >
                                 {item.name}
                               </span>
+                              {item.label && (
+                                <span className={styles.newLabelV2}>
+                                  {item.label}
+                                </span>
+                              )}
                             </Link>
                           );
                         })}

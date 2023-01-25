@@ -1,0 +1,23 @@
+.all {
+  width: 20rem;
+}
+.sticky {
+  position: fixed;
+  opacity: 1;
+  animation: hideIndex 0.5s;
+  transition: all 0.1s ease;
+}
+.isHide {
+  top: 5rem;
+}
+.notHide {
+  top: 10rem;
+}
+@keyframes hideIndex {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -20,3 +20,6 @@ export interface articleTags {
 export const getHeaderTags = () => {
   return myRequest.get("/api/column");
 };
+export const getOriginHeader = () => {
+  return myRequest.get("/api/getroutes");
+};

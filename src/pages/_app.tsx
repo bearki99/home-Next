@@ -52,7 +52,11 @@ export default function App({ Component, ...rest }: AppProps) {
           isRouteChanging={state.isRouteChanging}
           key={state.loadingKey}
         />
-        <Header />
+        <Header
+          originHeader={
+            rest.pageProps.originHeader && rest.pageProps.originHeader.data
+          }
+        />
         <Component {...props.pageProps} />
       </Layout>
     </Provider>

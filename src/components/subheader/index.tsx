@@ -1,45 +1,32 @@
 import React, { ReactNode, useCallback, useState } from "react";
-import { memo } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { memo, useRef } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 import styles from "./styles.module.less";
 import Link from "next/link";
 import classNames from "classnames";
-import {
-  changecurrentsubTagsAction,
-  changeinitialSubIndexAction,
-} from "../header/store";
 import { debounce } from "lodash";
 import { useRouter } from "next/router";
+import { IAppState } from "@/store";
 interface IProps {
   children?: ReactNode;
+  homeTags?: any[];
 }
-const SubHeader: React.FC<IProps> = () => {
-  let { homeTags, initialSubIndex, isHide } = useSelector(
-    (state: any) => ({
-      homeTags: state.header.homeTags,
-      initialSubIndex: state.header.initialSubIndex,
+const SubHeader: React.FC<IProps> = (props) => {
+  const { homeTags } = props;
+  let { isHide } = useSelector(
+    (state: IAppState) => ({
       isHide: state.header.isHide,
     }),
     shallowEqual
   );
-  const dispatch = useDispatch();
   const [showSubTags, setShowSubTags] = useState(false);
   const [currentIndex, changeIdx] = useState(-1);
   const router = useRouter();
-  const { names } = router.query;
-  const showTag = useCallback(
-    debounce(() => setShowSubTags(true), 500),
-    []
-  );
+  const { names, label = "" } = router.query;
+  const showTag = useRef(debounce(() => setShowSubTags(true), 500)).current;
   const hideTag = useCallback(() => {
     setShowSubTags(false);
-  }, [showSubTags]);
-  const handleClick = useCallback(
-    (item: any) => {
-      dispatch(changecurrentsubTagsAction(item));
-    },
-    [dispatch]
-  );
+  }, []);
   return (
     <div className={styles.mysubHeader}>
       <div
@@ -57,29 +44,25 @@ const SubHeader: React.FC<IProps> = () => {
                     className={styles.allItems}
                     key={item.id}
                     onMouseLeave={hideTag}
-                    onClick={() => handleClick(item.labels)}
                   >
                     <Link
-                      href={"/" + item.id}
+                      href={"/" + item.url}
                       className={classNames(
                         {
-                          active: index === initialSubIndex,
+                          active: item.url == label,
                         },
                         [styles.subheadItem]
                       )}
                       onClick={() => {
-                        dispatch(changeinitialSubIndexAction(index));
                       }}
                       onMouseEnter={() => {
                         showTag();
                         changeIdx(index);
                       }}
                     >
-                      <span className={styles.text}>
-                        {item.name.substring(0, 2)}
-                      </span>
+                      <span className={styles.text}>{item.name}</span>
                     </Link>
-                    {item.labels && (
+                    {item.labels.length > 0 && (
                       <div
                         className={classNames(
                           {
@@ -92,7 +75,8 @@ const SubHeader: React.FC<IProps> = () => {
                         )}
                       >
                         <div className={styles.tagList}>
-                          {item && item.labels && 
+                          {item &&
+                            item.labels &&
                             item.labels.map((elem: any) => {
                               return (
                                 <div
@@ -105,10 +89,10 @@ const SubHeader: React.FC<IProps> = () => {
                                   )}
                                 >
                                   <Link
-                                    href={"/" + item.id + "/" + elem.id}
+                                    href={"/" + item.url + "/" + elem.label}
                                     className={styles.gotoItem}
                                   >
-                                    {elem.label.substring(0, 4)}
+                                    {elem.label}
                                   </Link>
                                 </div>
                               );

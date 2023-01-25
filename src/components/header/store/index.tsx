@@ -1,7 +1,7 @@
 import { getAdvertiseData } from "@/components/advertise/service";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-import { getHeaderTags } from "../service";
+import { getHeaderTags, getOriginHeader } from "../service";
 export interface IHomeColumn {
   id: number;
   labels: ISubTags[];
@@ -21,6 +21,7 @@ export interface IHomeHeader {
   showAll: boolean;
   isDark: boolean;
   advertiseContent: any;
+  originHeader: any;
 }
 export const getHeaderDataAction = createAsyncThunk("header", async () => {
   const res = await getHeaderTags();
@@ -33,9 +34,17 @@ export const getAdvertiseDataAction = createAsyncThunk(
     return res.data.list;
   }
 );
+export const getOriginHeaderDataAction = createAsyncThunk(
+  "originHeader",
+  async () => {
+    const res = await getOriginHeader();
+    return res;
+  }
+);
 const headerSlice = createSlice({
   name: "header",
   initialState: {
+    originHeader: [],
     homeTags: [],
     currentsubTags: [],
     initialIndex: 0,
@@ -70,6 +79,9 @@ const headerSlice = createSlice({
     changeAdvertiseContent(state, { payload }) {
       state.advertiseContent = payload;
     },
+    changeOriginHeaderAction(state, { payload }) {
+      state.originHeader = payload;
+    },
   },
   extraReducers(builder) {
     // HYDRATE操作，保证服务器端和客户端的数据一致性
@@ -87,6 +99,9 @@ const headerSlice = createSlice({
       })
       .addCase(getAdvertiseDataAction.fulfilled, (state, { payload }) => {
         state.advertiseContent = payload;
+      })
+      .addCase(getOriginHeaderDataAction.fulfilled, (state, { payload }) => {
+        state.originHeader = payload;
       });
   },
 });
@@ -99,5 +114,6 @@ export const {
   changeShowAllAction,
   changeIsDarkAction,
   changeAdvertiseContent,
+  changeOriginHeaderAction
 } = headerSlice.actions;
 export default headerSlice.reducer;

@@ -16,7 +16,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid var(--header-border-color);
   transform: translate3d(0, -100%, 0);
   transition: all 0.2s;
 }
@@ -89,6 +89,20 @@
   padding: 0.1rem 0.3rem;
   line-height: normal;
 }
+.newLabelV2 {
+  position: absolute;
+  right: 1.8rem;
+  top: 0.6rem;
+  font-size: 1rem;
+  transform: scale(0.6);
+  color: white;
+  background-color: red;
+  z-index: 999;
+  display: table;
+  border-radius: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  line-height: normal;
+}
 .mobilePanigate {
   display: none;
   flex-direction: column;
@@ -106,6 +120,7 @@
   margin-right: 0.333rem;
 }
 .mobileItem {
+  position: relative;
   display: block;
   width: 100%;
   height: 4rem;

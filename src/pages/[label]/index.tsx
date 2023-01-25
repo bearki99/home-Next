@@ -1,32 +1,36 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import { memo } from "react";
 import styles from "./style.module.less";
-import { useRouter } from "next/router";
-import { shallowEqual, useSelector } from "react-redux";
+import { GetServerSideProps } from "next";
 import Subheader from "@/components/subheader/index";
 import SubContent from "./[names]/index";
+import wrapper from "@/store";
+import { getHeaderTags, getOriginHeader } from "@/components/header/service";
+import { getAdvertiseData } from "@/components/advertise/service";
+import { useRouter } from "next/router";
 interface IProps {
   children?: ReactNode;
+  homeTags?: any;
+  originHeader?: any;
+  advertiseData?: any;
 }
-const MainContent: React.FC<IProps> = () => {
-  const routes = useRouter();
-  const { label } = routes.query;
-  const { homeTags } = useSelector(
-    (state: any) => ({
-      homeTags: state.header.homeTags,
-    }),
-    shallowEqual
-  );
-  const [flag, setFlag] = useState(true);
-  useEffect(() => {
-    const nowTags = homeTags && homeTags.map((item: any) => item.id + "");
-    if (!label || nowTags.includes(label)) setFlag(true);
-    else setFlag(false);
-  }, [homeTags, label]);
+interface IItem {
+  id: number;
+  labels: any[];
+  name: string;
+  url: string;
+}
+const MainContent: React.FC<IProps> = (props) => {
+  const { homeTags, advertiseData } = props;
+  const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
+  const router = useRouter();
+  const { label = "" } = router.query;
+  const flag = urlArr.indexOf(label) !== -1;
+
   return flag ? (
     <>
-      <Subheader />
-      <SubContent />
+      <Subheader homeTags={homeTags} />
+      <SubContent advertiseData={advertiseData} homeTags={homeTags} />
     </>
   ) : (
     <div className={styles.mainBG}>
@@ -37,13 +41,18 @@ const MainContent: React.FC<IProps> = () => {
 export default memo(MainContent);
 MainContent.displayName = "MainContent";
 
-// export const getServerSideProps: GetServerSideProps =
-//   wrapper.getServerSideProps(function (store) {
-//     return async () => {
-//       await store.dispatch(getHeaderDataAction());
-//       // await store.dispatch(getAdvertiseDataAction());
-//       return {
-//         props: {},
-//       };
-//     };
-//   });
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(function () {
+    return async () => {
+      const res = await getOriginHeader();
+      const subheader = await getHeaderTags();
+      const advertiseData = await getAdvertiseData();
+      return {
+        props: {
+          originHeader: res || [],
+          homeTags: subheader.data || [],
+          advertiseData: advertiseData.data || [],
+        },
+      };
+    };
+  });
