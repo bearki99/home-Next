@@ -1,7 +1,9 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios";
 
+
 const BASE_URL = "http://47.96.134.75:3000"; //服务器地址，现在为mock的服务器地址
+
 const TIME_OUT = 1000 * 60;
 
 class myRequest {
@@ -11,12 +13,10 @@ class myRequest {
 
     // 全局拦截器
     this.instance.interceptors.request.use((config: AxiosRequestConfig) => {
-      // console.log("请求拦截");
       return config;
     });
 
     this.instance.interceptors.response.use((res: AxiosResponse) => {
-      // console.log("响应的拦截");
       return res;
     });
   }

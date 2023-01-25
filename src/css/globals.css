@@ -1,25 +1,8 @@
-
-body {
-  // min-width: 500px;
-  background-color: var(--background-color);
-}
-html {
-  font-size: 12px;
-}
-.active {
-  color: var(--active-color) !important;
-}
-.transformMenu {
-  fill: var(--active-color) !important;
-  transform: rotate(-180deg);
-}
-
 .SgtextOms {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 .textOms {
   word-break: break-word;
   text-overflow: ellipsis;
