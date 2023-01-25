@@ -1,9 +1,9 @@
 import React from "react";
-export default function Theme() {
+export default function GithubTheme() {
   return (
     <style jsx global>
       {`
-        @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme: light) {
           .markdown-body {
             color-scheme: dark;
             --color-prettylights-syntax-comment: #8b949e;
@@ -50,7 +50,7 @@ export default function Theme() {
             --color-danger-fg: #f85149;
           }
         }
-        @media (prefers-color-scheme: light) {
+        @media (prefers-color-scheme: dark) {
           .markdown-body {
             color-scheme: light;
             --color-prettylights-syntax-comment: #6e7781;

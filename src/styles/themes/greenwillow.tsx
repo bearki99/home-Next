@@ -1,5 +1,5 @@
 import React from "react";
-export default function Theme() {
+export default function GreenWillowTheme() {
   return (
     <style jsx global>
       {`

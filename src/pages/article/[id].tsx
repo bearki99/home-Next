@@ -190,7 +190,6 @@ const Article: React.FC<IProps> = (props: IProps) => {
                 <Anchor catalogContent={catalogContent} />
               </div>
             </div>}
-
           </div>
         </div>
       </div>
