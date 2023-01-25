@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps =
       const advertiseData = await getAdvertiseData();
       const query = context.query;
       store.dispatch(changeActiveTypeAction(query.sort ? query.sort : ""));
-      // 当前label
+      // // 当前label
       store.dispatch(changeLabelAction("recommended"));
       await store.dispatch(
         getArticlesAction({

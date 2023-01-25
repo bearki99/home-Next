@@ -1,7 +1,6 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios";
 
-
 const BASE_URL = "http://47.96.134.75:3000"; //服务器地址，现在为mock的服务器地址
 
 const TIME_OUT = 1000 * 60;
@@ -45,5 +44,10 @@ class myRequest {
 
 export default new myRequest({
   baseURL: BASE_URL,
+  timeout: TIME_OUT,
+});
+
+export const testRequest = new myRequest({
+  baseURL: "http://127.0.0.1:4523/m1/2202148-0-default",
   timeout: TIME_OUT,
 });

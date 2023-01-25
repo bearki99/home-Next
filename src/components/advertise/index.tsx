@@ -41,7 +41,7 @@ const Advertise: React.FC<IProps> = (props) => {
   };
   const handleScroll = () => {
     scrollTop = getScollTop();
-    if (scrollTop >= contentHeight * 0.4) {
+    if (scrollTop >= contentHeight * 0.7) {
       setSticky(true);
     } else {
       setSticky(false);
