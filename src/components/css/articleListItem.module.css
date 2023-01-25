@@ -15,9 +15,7 @@
 }
 .articleListItem .artBody .artHead {
   font-size: 14px;
-}
-.articleListItem .artBody .artHead .author {
-  color: var(--color);
+  white-space: nowrap;
 }
 .articleListItem .artBody .artInfo {
   flex: 1;
@@ -39,8 +37,30 @@
 .articleListItem .artBody .artIMG {
   margin-left: 24px;
 }
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .articleListItem .artBody .artIMG {
     margin-left: 12px;
+  }
+}
+.pcAuthor .author {
+  color: var(--color);
+}
+.pcAuthor .author:hover {
+  color: var(--item-active-color);
+}
+.mobileAuthor .author {
+  color: var(--color);
+}
+.mobileAuthor .author:hover {
+  color: var(--item-active-color);
+}
+@media screen and (min-width: 600px) {
+  .mobileAuthor {
+    display: none;
+  }
+}
+@media screen and (max-width: 599px) {
+  .pcAuthor {
+    display: none;
   }
 }

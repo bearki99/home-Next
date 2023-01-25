@@ -5,14 +5,16 @@ body.light {
   --article-list-divider-color: hsla(0, 0%, 59.2%, 0.2);
   --list-hover-color: #fafafa;
   --background-color: #fff;
+  --body-background-color: #f2f3f5;
   --item-active-color: #1e80ff;
 }
 body.dark {
   --color: #fff;
   --text-color: #fff;
   --author-text-color: #DDD;
-  --article-list-divider-color: hsla(0, 0%, 59.2%, 0.2);
+  --article-list-divider-color: #fff;
   --list-hover-color: #2c2c2c;
   --background-color: #000;
   --item-active-color: #93c4da;
+  --body-background-color: #313131;
 }

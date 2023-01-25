@@ -5,5 +5,5 @@ export function getArticleListApi(data:IArticleListRequest){
   return request.get("/api/getArticles",data);
 }
 export function getAuthorListApi(){
-  return request.get("/api/cms/authorsRank");
+  return request.get("/api/authorsRank");
 }

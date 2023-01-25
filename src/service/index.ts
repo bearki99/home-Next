@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios";
 
-const BASE_URL = "	https://mock.apifox.cn/m1/2203721-0-default"; //服务器地址
+const BASE_URL = "https://mock.apifox.cn/m1/2216034-0-default"; //服务器地址
 const TIME_OUT = 1000 * 60;
 
 class myRequest {

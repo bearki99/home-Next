@@ -1,20 +1,20 @@
-import React, { ReactNode,useEffect,useState } from "react";
+import React, { ReactNode } from "react";
 import { memo } from "react";
 
 import AuthorListItem from "@/components/authorListItem";
-import {getAuthorListApi} from "@/service/request";
+
+import { useSelector } from "react-redux";
+import type { IAppState } from "@/store";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const AuthorListBox: React.FC<IProps> = () => {
-  let [authorListData,setAuthorListData]=useState([]);
-  useEffect(()=>{
-    getAuthorListApi().then(res=>{
-      setAuthorListData(res.data.list);
-    });
-  },[]);
+  const { authorListData } = useSelector((state: IAppState) => ({
+    authorListData: state.authorList.authors
+  }));
+
   return <div>
     <div style={{ padding: "12px 15.5px", color: "var(--color)" }}>🎖️作者榜</div>
     <div className="authorList">
