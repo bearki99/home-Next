@@ -13,3 +13,17 @@ export interface IHeader {
    */
   url: string;
 }
+
+export interface ISubHeader {
+    id: number;
+    labels: articleTag[];
+    name: string;
+}
+
+/**
+ * 文章标签
+ */
+export  interface articleTag {
+    id: number;
+    label: string;
+}

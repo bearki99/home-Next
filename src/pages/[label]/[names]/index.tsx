@@ -1,4 +1,3 @@
-
 import React, { ReactNode, useEffect } from "react";
 import { memo } from "react";
 import { useRouter } from "next/router";
@@ -30,13 +29,19 @@ import {
   changeSubtabAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
+import Head from "next/head";
 
 interface IProps {
   children?: ReactNode;
   homeTags?: any[];
   advertiseData?: any[];
 }
-
+interface IItem {
+  id: number;
+  labels: any[];
+  name: string;
+  url: string;
+}
 const SubContent: React.FC<IProps> = (props) => {
   const router = useRouter();
   const dispatch = useDispatch<IAppDispatch>();
@@ -44,6 +49,9 @@ const SubContent: React.FC<IProps> = (props) => {
   const { homeTags, advertiseData } = props;
   const labelTags = homeTags && homeTags.map((item: any) => item.url);
   const currentIndex = labelTags && labelTags.indexOf(label);
+  const nameArr = homeTags && homeTags.map((item: IItem) => item.name);
+  const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
+  const myIndex = urlArr?.indexOf(label as string);
   let baseUrl = router.asPath;
   if (router.asPath.indexOf("?") !== -1) {
     baseUrl = baseUrl.slice(0, router.asPath.indexOf("?"));
@@ -103,6 +111,19 @@ const SubContent: React.FC<IProps> = (props) => {
   }
   return (
     <>
+      <Head>
+        <title>{myIndex && nameArr && nameArr[myIndex]} - 掘金</title>
+        <meta
+          name="description"
+          data-n-head="ssr"
+          content="掘金是面向全球中文开发者的技术内容分享与交流平台。我们通过技术文章、沸点、课程、直播等产品和服务，打造一个激发开发者创作灵感，激励开发者沉淀分享，陪伴开发者成长的综合类技术社区。"
+        ></meta>
+        <meta
+          name="keywords"
+          data-n-head="ssr"
+          content="掘金,稀土,Vue.js,前端面试题,Kotlin,ReactNative,Python"
+        ></meta>
+      </Head>
       {/* 次导航栏 */}
       {names && <Subheader homeTags={homeTags} />}
 
@@ -110,7 +131,6 @@ const SubContent: React.FC<IProps> = (props) => {
         {/* MainContent:{label} */}
 
         <div className={styles.mainContent}>
-
           <div className={styles.topNav}>
             {label &&
               currentIndex &&
@@ -165,11 +185,11 @@ const SubContent: React.FC<IProps> = (props) => {
             </div>
 
             <div className={styles.right}>
+              <div className={styles.advertise}>
+                <Advertise advertiseData={advertiseData} />
+              </div>
               <div className={styles.author}>
                 <AuthorListBox />
-              </div>
-              <div className={styles.advertise}>
-                <Advertise advertiseData={advertiseData}/>
               </div>
             </div>
           </div>

@@ -4,10 +4,11 @@ import { memo } from "react";
 import styles from "./style.module.less";
 import Link from "next/link";
 import classNames from "classnames";
+
 interface IProps {
   children?: ReactNode;
   names?: string;
-  currentsubTags?: any[];
+  currentsubTags?: any;
 }
 
 const SubShow: React.FC<IProps> = (props) => {

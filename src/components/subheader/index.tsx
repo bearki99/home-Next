@@ -49,12 +49,12 @@ const SubHeader: React.FC<IProps> = (props) => {
                       href={"/" + item.url}
                       className={classNames(
                         {
-                          active: item.url == label,
+                          active:
+                            item.url == label || (index == 0 && label == ""),
                         },
                         [styles.subheadItem]
                       )}
-                      onClick={() => {
-                      }}
+                      onClick={() => {}}
                       onMouseEnter={() => {
                         showTag();
                         changeIdx(index);
