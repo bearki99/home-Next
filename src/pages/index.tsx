@@ -11,6 +11,7 @@ import {
   changeLabelAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
+import Head from "next/head";
 
 interface IProps {
   homeTags: any[];
@@ -20,6 +21,9 @@ export default function HomePage(props: IProps) {
   const { homeTags, advertiseData } = props;
   return (
     <>
+      <Head>
+        <title>main-page</title>
+      </Head>
       <MainContent homeTags={homeTags} advertiseData={advertiseData} />
     </>
   );
