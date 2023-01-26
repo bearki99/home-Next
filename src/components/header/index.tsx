@@ -50,7 +50,7 @@ const Header: React.FC<IProps> = (props) => {
         setClickMenu(false);
       }
     },
-    [clickMenu]
+    []
   );
   useEffect(() => {
     if (clickMenu) {
@@ -59,7 +59,7 @@ const Header: React.FC<IProps> = (props) => {
         document.removeEventListener("click", clickCallback, false);
       };
     }
-  }, [clickMenu]);
+  }, [clickMenu, clickCallback]);
 
   //添加滚动监听 目前设置>0.2*contentHeight就隐藏，在>0.2*contentHeight后，如果方向往上，就显示，往下就隐藏
   let scrollTop = 0;
