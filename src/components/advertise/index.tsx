@@ -24,7 +24,7 @@ const Advertise: React.FC<IProps> = (props) => {
   const [sticky, setSticky] = useState(false);
   const [isHide, setHide] = useState(false);
   let scrollTop = 0;
-
+  let contentHeight = 0;
   let scrollTopV2 = 0;
   let topValue = 0;
   let contentHeightV2 = 0;
@@ -62,17 +62,17 @@ const Advertise: React.FC<IProps> = (props) => {
     if (document?.documentElement && document?.documentElement?.scrollTop) {
       scrollTop = document?.documentElement.scrollTop;
 
-      // contentHeight = document?.documentElement.clientHeight;
+      contentHeight = document?.documentElement.clientHeight;
     } else if (document?.body) {
       scrollTop = document?.body.scrollTop;
-      // contentHeight = document?.body.clientHeight;
+      contentHeight = document?.body.clientHeight;
     }
     return scrollTop;
   };
 
   const handleScroll = () => {
     scrollTop = getScollTop();
-    if (scrollTop >= 800) {
+    if (scrollTop >= 600 && contentHeight > scrollTop) {
       setSticky(true);
     } else {
       setSticky(false);
@@ -80,7 +80,6 @@ const Advertise: React.FC<IProps> = (props) => {
   };
 
   const bindHandleScroll = React.useRef(throttle(handleScroll, 100)).current;
-
 
   const bindHandleScrollV2 = React.useRef(
     throttle(handleScrollV2, 100)
@@ -94,7 +93,6 @@ const Advertise: React.FC<IProps> = (props) => {
       window.removeEventListener("scroll", bindHandleScrollV2);
     };
   }, [bindHandleScroll, bindHandleScrollV2]);
-
 
   return (
     <div

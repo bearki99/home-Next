@@ -175,11 +175,11 @@ const SubContent: React.FC<IProps> = (props) => {
             </div>
 
             <div className={styles.right}>
-              <div className={styles.author}>
-                <AuthorListBox />
-              </div>
               <div className={styles.advertise}>
                 <Advertise advertiseData={advertiseData} />
+              </div>
+              <div className={styles.author}>
+                <AuthorListBox />
               </div>
             </div>
           </div>
