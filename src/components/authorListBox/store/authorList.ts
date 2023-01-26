@@ -8,8 +8,8 @@ export interface IAuthorListInitialState {
 }
 export const getAuthorsAction = createAsyncThunk("authorList", async () => {
   const res = await getAuthorListApi();
-
-  return res.data.list;
+  // mock与实际api结构不一致
+  return res.data.list ? res.data.list : res.data;
 });
 
 const authorList = createSlice({

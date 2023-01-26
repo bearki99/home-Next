@@ -33,9 +33,9 @@ const getScrollTop = () => {
   return scrollTop;
 };
 
-
 export default function isBottom() {
-  if (getScrollHeight() - getScrollTop() - getWindowHeight() < 1) {
+  let curToBottomY = getScrollHeight() - getScrollTop() - getWindowHeight();
+  if (curToBottomY < 20) {
     return true;
   }
   return false;

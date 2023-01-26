@@ -14,6 +14,7 @@ export interface IArticleListInitialState {
   subtab: string;
 }
 export const getArticlesAction = createAsyncThunk("articleList", async (data: IArticleListRequest) => {
+  console.log(data);
   const res = await getArticleListApi(data);
   return res.data.list;
 });
@@ -29,8 +30,8 @@ const articleList = createSlice({
     subtab: ""
   } as IArticleListInitialState,
   reducers: {
-    changePageAction(state, { payload }) {
-      state.curPage = payload;
+    changePageAction(state) {
+      state.curPage += 1;
     },
     changeActiveTypeAction(state, { payload }) {
       console.log(payload);
@@ -55,7 +56,13 @@ const articleList = createSlice({
     changeLoadingAction(state, { payload }) {
       console.log("loading", payload);
       state.isLoading = payload;
-    }
+    },
+    // removeArticleByIdAction(state, { payload }) {
+    //   console.log('删除文章', payload)
+    //   state.articles = state.articles?.filter(item => {
+    //     return item.id !== payload
+    //   })
+    // }
   },
   extraReducers(builder) {
     // HYDRATE操作，保证服务器端和客户端的数据一致性
@@ -77,6 +84,11 @@ const articleList = createSlice({
   },
 });
 
-export const { changePageAction, changeActiveTypeAction, changeLoadingAction,changeLabelAction,changeSubtabAction } = articleList.actions;
+export const {
+  changePageAction,
+  changeActiveTypeAction,
+  changeLoadingAction,
+  changeLabelAction,
+  changeSubtabAction, } = articleList.actions;
 
 export default articleList.reducer;
