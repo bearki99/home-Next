@@ -1,0 +1,124 @@
+.rightContent1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  height: 100%;
+  margin: 0;
+  order: 0;
+}
+.rightContentFirst {
+  flex: 1 1 auto;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.active {
+  border: 1px solid var(--active-color) !important;
+  box-shadow: none !important;
+}
+.cotainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  position: relative;
+  height: 2.834rem;
+  border: 1px solid #8b9097;
+  transition: width 0.2s;
+}
+.myInput {
+  border: none;
+  width: calc(100% - 44px);
+  padding: 0.6rem 0 0.6rem 1rem;
+  box-shadow: none !important;
+  outline: none;
+  font-size: 1.1rem;
+  color: #8a919f;
+  background-color: transparent;
+  transition: width 0.3s;
+}
+.searchBtnCotainer {
+  cursor: pointer;
+  position: relative;
+  left: -2px;
+  width: 44px;
+  height: 30px;
+  background: var(--searchbtn-color);
+  border-radius: 2px;
+}
+.searchBtn {
+  display: inline-block;
+  position: relative;
+  bottom: 0.5rem;
+  width: 1.33rem;
+  height: 1.33rem;
+  padding: 0 0.8333rem 0 0;
+  cursor: pointer;
+  margin: 7px 15px;
+  background: url("https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/1e8ab9a22f0ddc36349f60b38900d0bd.svg");
+}
+.searchBtnActive {
+  color: #eaf2ff;
+  background: #eaf2ff;
+}
+.searchContentActive {
+  background: url("https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/6dbcdb42ffe8d518a318a5e26efade18.svg") !important;
+}
+.creator {
+  overflow: visible;
+  width: 11rem;
+  padding-left: 5px;
+}
+@media screen and (min-width: 1351px) {
+  .cotainer {
+    width: 260px;
+  }
+  // .active {
+  //   width: 33.5rem;
+  // }
+}
+@media screen and (max-width: 1350px) {
+  .cotainer {
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 1190px) and (min-width: 1070px) {
+  .cotainer {
+    width: 360px;
+  }
+}
+@media screen and (max-width: 1069px) {
+  .cotainer {
+    width: 240px;
+  }
+}
+@media (max-width: 799px) {
+  .cotainer {
+    width: 220px;
+    transition: width 0.2s ease-in;
+  }
+}
+@media (max-width: 640px) {
+  .cotainer {
+    height: 32px;
+    transition: width 0.1s linear 0s;
+    width: 140px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .creator {
+    display: none !important;
+  }
+  .cotainer {
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 440px) {
+  .cotainer {
+    display: none !important;
+  }
+}

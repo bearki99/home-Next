@@ -1,2 +1,40 @@
+
 @mainHeader: 5rem;
 @subHeader: 3.833rem;
+// variable.css
+html {
+  font-size: 12px;
+  -webkit-font-smoothing: unset !important;
+  font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial !important;
+}
+
+
+body {
+  // min-width: 500px;
+  background-color: var(--background-color);
+}
+html {
+  font-size: 12px;
+}
+.active {
+  color: var(--active-color) !important;
+}
+.transformMenu {
+  fill: var(--active-color) !important;
+  transform: rotate(-180deg);
+}
+
+.SgtextOms {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.textOms {
+  word-break: break-word;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}

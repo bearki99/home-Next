@@ -1,0 +1,254 @@
+@import "@/styles/variables.less";
+.mymainHeader {
+  height: 5rem;
+}
+.header {
+  position: fixed;
+  background-color: var(--background-color);
+  top: 0;
+  left: 0;
+  height: 5rem;
+  line-height: @mainHeader;
+  display: fixed;
+  color: var(--text-color);
+  z-index: 250;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid var(--header-border-color);
+  transform: translate3d(0, -100%, 0);
+  transition: all 0.2s;
+}
+.cotainer {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  margin: 0 auto;
+  height: 100%;
+  max-width: 1440px;
+}
+.logo {
+  margin-right: 1rem;
+}
+.headerIcon {
+  margin-left: 24px;
+  margin-right: 0.2rem;
+}
+.name {
+  display: inline-block;
+  color: var(--header-text-color);
+  position: relative;
+  top: 0.2rem;
+  font-size: 1.5rem;
+}
+.navPanigate {
+  display: flex;
+}
+.panigateA {
+  margin: 0 1rem;
+  color: var(--header-nav-text-color);
+  text-decoration: none;
+}
+.mobilePanigate {
+  display: none;
+}
+.panigateItem {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.167rem;
+}
+.panigateItem:hover {
+  .panigateA {
+    display: inline-block;
+    position: relative;
+    color: var(--header-nav-hover-color);
+    &::before {
+      content: "";
+      position: absolute;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0.1rem;
+      background-color: var(--active-color);
+    }
+  }
+}
+.newLabel {
+  position: absolute;
+  right: -0.17rem;
+  top: 0.65rem;
+  font-size: 1rem;
+  transform: scale(0.6);
+  color: white;
+  background-color: red;
+  z-index: 999;
+  display: table;
+  border-radius: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  line-height: normal;
+}
+.newLabelV2 {
+  position: absolute;
+  right: 1.8rem;
+  top: 0.6rem;
+  font-size: 1rem;
+  transform: scale(0.6);
+  color: white;
+  background-color: red;
+  z-index: 999;
+  display: table;
+  border-radius: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  line-height: normal;
+}
+.mobilePanigate {
+  display: none;
+  flex-direction: column;
+}
+.mobileMenu {
+  height: 5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex: 1 0 auto;
+}
+.mobileName {
+  font-size: 1.33rem;
+  color: var(--active-color);
+  margin-right: 0.333rem;
+}
+.mobileItem {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 4rem;
+  text-decoration: none;
+  text-align: center;
+}
+.mobileTextName {
+  font-size: 1.167rem;
+  color: var(--header-nav-text-color);
+}
+.unfold16Icon {
+  fill: #515767;
+  transition: transform 0.2s ease-in-out;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  flex-direction: row-reverse;
+  position: relative;
+  flex: 1 0 auto;
+}
+.navList {
+  order: 99;
+  display: flex;
+}
+.header .container {
+  margin: auto;
+  max-width: 1440px;
+}
+.mobileItem:hover {
+  .mobileTextName {
+    display: inline-block;
+    position: relative;
+    color: var(--mobile-hover-color);
+    &::before {
+      content: "";
+      position: absolute;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0.14rem;
+      background-color: var(--active-color);
+    }
+  }
+}
+.rightSide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  margin: 0;
+  order: 0;
+}
+.show {
+  transform: translateZ(0);
+}
+.fixedWhite {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  height: 5rem;
+  width: 100%;
+  background-color: var(--background-color);
+}
+@media (max-width: 1149px) {
+  .cotainer {
+    width: 97%;
+    margin: 0 1.5rem !important;
+  }
+  .headerIcon {
+    margin-left: 0px;
+  }
+}
+@media (max-width: 660px) {
+  .mymainHeader {
+    height: 4.333rem;
+  }
+  .header {
+    height: 4.333rem;
+  }
+  .cotainer {
+    margin: 0 0.917rem 0 1.5rem !important;
+  }
+  .headerIcon {
+    position: relative;
+    top: 0.02rem;
+    margin-left: 0;
+  }
+  .name {
+    display: none;
+  }
+  .phoneMenuDetail {
+    left: -5.7rem !important;
+  }
+}
+@media screen and (max-width: 1350px) {
+  .panigateItem:nth-last-child(-n + 2) {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 1190px) {
+  .navPanigate {
+    display: none;
+  }
+  .mobilePanigate {
+    display: block;
+    position: relative;
+  }
+  .phoneMenuDetail {
+    display: block;
+    position: absolute;
+    z-index: 99;
+    background-color: var(--background-color);
+    right: -4rem;
+    left: -4.3rem;
+    padding: 0.667rem;
+    width: 11.9rem;
+    top: 52px;
+    box-shadow: 0 8px 24px rgb(81 87 103 / 16%);
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    overflow: hidden;
+  }
+  .phoneMenuHidden {
+    display: none;
+  }
+}

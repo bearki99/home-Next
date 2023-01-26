@@ -1,0 +1,29 @@
+.authorListItem {
+  display: flex;
+  box-sizing: border-box;
+  padding: 12px 15.6px;
+  color: var(--author-text-color);
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--list-hover-color);
+  }
+  .autAvatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 6px;
+    border-radius: 50%;
+  }
+  .autInfo {
+    flex: 1;
+    width: 0;
+    div {
+      margin-bottom: 3px;
+    }
+    .autDcp {
+      font-size: 12px;
+      color: var(--text-color);
+    }
+  }
+}

@@ -1,10 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import homeReducer from "./modules/home";
+import articleReducer from "./modules/article";
+import articleListReducer from "@/components/articleListBox/store/articleList";
+import authorListReducer from "@/components/authorListBox/store/authorList";
+import headerReducer from "@/components/header/store";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    home: homeReducer,
+    article: articleReducer,
+    header: headerReducer,
+    articleList: articleListReducer,
+    authorList: authorListReducer,
   },
 });
 
