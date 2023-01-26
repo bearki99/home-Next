@@ -1,10 +1,42 @@
 .articleListItem {
+<<<<<<< HEAD
   padding: 12px 20px 0 20px;
   cursor: pointer;
   color: var(--text-color);
 
   &:hover {
     background-color: var(--list-hover-color);
+=======
+  height: 131px;
+  padding: 12px 20px 0 20px;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--text-color);
+  transition: all .5s ease;
+
+  .artHeadClose {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(--list-hover-color);
+    .artHeadClose{
+      display: inline-block;
+      color: var(--text-color);
+      &:hover {
+        color:var(--item-active-color);
+      }
+    }
+  }
+
+  .artHead {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    white-space: nowrap;
+    
+
+>>>>>>> a44a963e7c40046ab92b606eb2d10d202975ddb4
   }
 
   .artBody {
@@ -14,11 +46,14 @@
     margin-top: 10px;
     border-bottom: 1px solid #e5e6eb;
 
+<<<<<<< HEAD
     .artHead {
       font-size: 14px;
       white-space: nowrap;
     }
 
+=======
+>>>>>>> a44a963e7c40046ab92b606eb2d10d202975ddb4
     .artInfo {
       flex: 1;
       overflow: hidden;
@@ -49,6 +84,15 @@
   }
 }
 
+<<<<<<< HEAD
+=======
+.closed {
+  height: 0px;
+  padding-top: 0px;
+  border: none;
+}
+
+>>>>>>> a44a963e7c40046ab92b606eb2d10d202975ddb4
 
 .pcAuthor {
   .author {

@@ -5,6 +5,7 @@ import AdItem from "./c-cpns/ad-item";
 import Download from "./c-cpns/download";
 import styles from "./style.module.less";
 import { throttle } from "lodash";
+
 interface IProps {
   children?: ReactNode;
   advertiseData?: any;
@@ -56,11 +57,11 @@ const Advertise: React.FC<IProps> = (props) => {
       setHide(false);
     }
   };
-
   const getScollTop = () => {
     let scrollTop = 0;
     if (document?.documentElement && document?.documentElement?.scrollTop) {
       scrollTop = document?.documentElement.scrollTop;
+
       // contentHeight = document?.documentElement.clientHeight;
     } else if (document?.body) {
       scrollTop = document?.body.scrollTop;
@@ -80,6 +81,7 @@ const Advertise: React.FC<IProps> = (props) => {
 
   const bindHandleScroll = React.useRef(throttle(handleScroll, 100)).current;
 
+
   const bindHandleScrollV2 = React.useRef(
     throttle(handleScrollV2, 100)
   ).current;
@@ -92,6 +94,7 @@ const Advertise: React.FC<IProps> = (props) => {
       window.removeEventListener("scroll", bindHandleScrollV2);
     };
   }, [bindHandleScroll, bindHandleScrollV2]);
+
 
   return (
     <div

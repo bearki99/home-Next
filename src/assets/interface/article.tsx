@@ -22,7 +22,7 @@ export interface IArticleItem {
      */
     avatar: string;
     description: string;
-    id: string;
+    id: number;
     username: string;
   };
   /**
@@ -53,7 +53,7 @@ export interface IArticleItem {
    * 标题
    */
   title: string;
-  uid: string;
+  id: number;
   /**
    * 阅读数
    */

@@ -133,7 +133,9 @@ const Header: React.FC<IProps> = (props) => {
                   <>
                     <div className={styles.navPanigate}>
                       {originHeader &&
+
                         originHeader.map((item: IHeader, index: number) => {
+
                           return (
                             <div
                               className={styles.panigateItem}
@@ -196,6 +198,7 @@ const Header: React.FC<IProps> = (props) => {
                       >
                         {originHeader &&
                           originHeader.map((item: IHeader, index: number) => {
+
                             return (
                               <Link
                                 href={item.url}

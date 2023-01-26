@@ -9,6 +9,7 @@ import {
   changeActiveTypeAction,
   getArticlesAction,
   changeLabelAction,
+  changeSubtabAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
 import Head from "next/head";
@@ -22,7 +23,6 @@ export default function HomePage(props: IProps) {
   return (
     <>
       <Head>
-        <title>稀土掘金</title>
       </Head>
       <MainContent homeTags={homeTags} advertiseData={advertiseData} />
     </>
@@ -32,26 +32,32 @@ HomePage.displayName = "HomePage";
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
-    const { activeType, curSize, label, curPage } =
+
+    const { activeType, curPage, curSize, label, subtab } =
       store.getState().articleList;
+    const { authors } = store.getState().authorList;
     return async (context) => {
       const res = await getOriginHeader();
       const homeTags = await getHeaderTags();
       const advertiseData = await getAdvertiseData();
       const query = context.query;
-      store.dispatch(changeActiveTypeAction(query.sort ? query.sort : ""));
-      // // 当前label
+
+      store.dispatch(changeActiveTypeAction(query.sort ? query.sort : "recommend"));
       store.dispatch(changeLabelAction("recommended"));
+      query.names && store.dispatch(changeSubtabAction(""));
+
       await store.dispatch(
         getArticlesAction({
           page: curPage,
           size: curSize,
           label: label,
           type: activeType,
-          subtab: "",
+          subtab: subtab,
         })
       );
-      await store.dispatch(getAuthorsAction());
+      if (authors?.length === 0) {
+        await store.dispatch(getAuthorsAction());
+      }
       return {
         props: {
           originHeader: res || [],

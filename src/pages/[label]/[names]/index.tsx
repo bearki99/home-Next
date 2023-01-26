@@ -29,19 +29,18 @@ import {
   changeSubtabAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
-import Head from "next/head";
 
 interface IProps {
   children?: ReactNode;
   homeTags?: any[];
   advertiseData?: any[];
 }
-interface IItem {
-  id: number;
-  labels: any[];
-  name: string;
-  url: string;
-}
+// interface IItem {
+//   id: number;
+//   labels: any[];
+//   name: string;
+//   url: string;
+// }
 const SubContent: React.FC<IProps> = (props) => {
   const router = useRouter();
   const dispatch = useDispatch<IAppDispatch>();
@@ -49,9 +48,9 @@ const SubContent: React.FC<IProps> = (props) => {
   const { homeTags, advertiseData } = props;
   const labelTags = homeTags && homeTags.map((item: any) => item.url);
   const currentIndex = labelTags && labelTags.indexOf(label);
-  const nameArr = homeTags && homeTags.map((item: IItem) => item.name);
-  const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
-  const myIndex = urlArr?.indexOf(label as string);
+  // const nameArr = homeTags && homeTags.map((item: IItem) => item.name);
+  // const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
+  // const myIndex = urlArr?.indexOf(label as string);
   let baseUrl = router.asPath;
   if (router.asPath.indexOf("?") !== -1) {
     baseUrl = baseUrl.slice(0, router.asPath.indexOf("?"));
@@ -111,9 +110,6 @@ const SubContent: React.FC<IProps> = (props) => {
   }
   return (
     <>
-      <Head>
-        <title>{myIndex && nameArr && nameArr[myIndex]} - 掘金</title>
-      </Head>
       {/* 次导航栏 */}
       {names && <Subheader homeTags={homeTags} />}
 
@@ -136,7 +132,11 @@ const SubContent: React.FC<IProps> = (props) => {
             <div className={styles.left}>
               <div className={styles.artListHead}>
                 <Link href={baseUrl}>
-                  <span className={activeType === "" ? styles.activeType : ""}>
+                  <span
+                    className={
+                      activeType === "recommend" ? styles.activeType : ""
+                    }
+                  >
                     推荐
                   </span>
                 </Link>
@@ -175,11 +175,11 @@ const SubContent: React.FC<IProps> = (props) => {
             </div>
 
             <div className={styles.right}>
-              <div className={styles.advertise}>
-                <Advertise advertiseData={advertiseData} />
-              </div>
               <div className={styles.author}>
                 <AuthorListBox />
+              </div>
+              <div className={styles.advertise}>
+                <Advertise advertiseData={advertiseData} />
               </div>
             </div>
           </div>
@@ -201,15 +201,16 @@ export const getServerSideProps: GetServerSideProps =
       const res = await getOriginHeader();
       const subheader = await getHeaderTags();
       const advertiseData = await getAdvertiseData();
-
       if (
         query.label &&
-        query.label[0] !== "/" &&
-        query.label[0] !== "/favicon.ico"
+        query.label !== "/" &&
+        query.label !== "/favicon.ico"
       ) {
-        store.dispatch(changeActiveTypeAction(query.sort ? query.sort : ""));
-        store.dispatch(changeLabelAction(query.label[0]));
-        query.label[1] && store.dispatch(changeSubtabAction(query.label[1]));
+        store.dispatch(
+          changeActiveTypeAction(query.sort ? query.sort : "recommend")
+        );
+        store.dispatch(changeLabelAction(query.label));
+        query.names && store.dispatch(changeSubtabAction(query.names));
         await store.dispatch(
           getArticlesAction({
             page: curPage,
