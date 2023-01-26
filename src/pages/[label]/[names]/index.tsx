@@ -126,7 +126,7 @@ const SubContent: React.FC<IProps> = (props) => {
             <div className={styles.left}>
               <div className={styles.artListHead}>
                 <Link href={baseUrl}>
-                  <span className={activeType === "" ? styles.activeType : ""}>
+                  <span className={(activeType === "recommend") ? styles.activeType : ""}>
                     推荐
                   </span>
                 </Link>
@@ -169,7 +169,7 @@ const SubContent: React.FC<IProps> = (props) => {
                 <AuthorListBox />
               </div>
               <div className={styles.advertise}>
-                <Advertise advertiseData={advertiseData}/>
+                <Advertise advertiseData={advertiseData} />
               </div>
             </div>
           </div>
@@ -191,15 +191,14 @@ export const getServerSideProps: GetServerSideProps =
       const res = await getOriginHeader();
       const subheader = await getHeaderTags();
       const advertiseData = await getAdvertiseData();
-
       if (
         query.label &&
-        query.label[0] !== "/" &&
-        query.label[0] !== "/favicon.ico"
+        query.label !== "/" &&
+        query.label !== "/favicon.ico"
       ) {
-        store.dispatch(changeActiveTypeAction(query.sort ? query.sort : ""));
-        store.dispatch(changeLabelAction(query.label[0]));
-        query.label[1] && store.dispatch(changeSubtabAction(query.label[1]));
+        store.dispatch(changeActiveTypeAction(query.sort ? query.sort : "recommend"));
+        store.dispatch(changeLabelAction(query.label));
+        query.names && store.dispatch(changeSubtabAction(query.names));
         await store.dispatch(
           getArticlesAction({
             page: curPage,

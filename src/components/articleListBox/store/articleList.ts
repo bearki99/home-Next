@@ -21,7 +21,7 @@ const articleList = createSlice({
   name: "articleList",
   initialState: {
     articles: [],
-    activeType: "",
+    activeType: "recommend",
     curPage: 1,
     curSize: 20,
     isLoading: false,

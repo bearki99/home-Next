@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import type { IAppDispatch, IAppState } from "@/store";
 import { getArticlesAction, changePageAction } from "@/components/articleListBox/store/articleList";
 import isBottom from "@/utils/handleScrollBottom";
-import { Skeleton } from "antd";
 
 interface IProps {
   children?: ReactNode;
@@ -62,11 +61,6 @@ const ArticleListBox: React.FC<IProps> = () => {
   return (
     <div>
       <div className="articleList">
-        {
-          (!articles || !articles.length) && (
-            <Skeleton active />
-          )
-        }
         {
           articles && articles.map((item: any) => {
             return (

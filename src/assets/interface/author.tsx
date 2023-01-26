@@ -18,6 +18,6 @@ export interface IAuthor {
    */
   avatar: string;
   description: string;
-  id: string;
+  id: number;
   username: string;
 }

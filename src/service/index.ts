@@ -52,7 +52,7 @@ const request = new myRequest({
 export default request;
 
 export const testRequest = new myRequest({
-  baseURL: "http://127.0.0.1:4523/m1/2202148-0-default",
+  baseURL: "https://mock.apifox.cn/m1/2202148-0-default",
   timeout: TIME_OUT,
 });
 
