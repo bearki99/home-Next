@@ -1,13 +1,17 @@
 import React, { ReactNode } from "react";
 import { memo } from "react";
-import styles from "./style.module.less";
+import wrapper from "@/store";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+
+import styles from "./style.module.less";
+
 import Subheader from "@/components/subheader/index";
 import SubContent from "./[names]/index";
-import wrapper from "@/store";
+
 import { getHeaderTags, getOriginHeader } from "@/components/header/service";
 import { getAdvertiseData } from "@/components/advertise/service";
-import { useRouter } from "next/router";
+
 interface IProps {
   children?: ReactNode;
   homeTags?: any;

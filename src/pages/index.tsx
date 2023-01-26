@@ -1,14 +1,18 @@
-import MainContent from "@/pages/[label]";
+
 import wrapper from "@/store";
 import { GetServerSideProps } from "next";
+
 import { getHeaderTags, getOriginHeader } from "@/components/header/service";
 import { getAdvertiseData } from "@/components/advertise/service";
+
+import MainContent from "@/pages/[label]";
 import {
   changeActiveTypeAction,
   getArticlesAction,
   changeLabelAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
+
 interface IProps {
   homeTags: any[];
   advertiseData: any[];

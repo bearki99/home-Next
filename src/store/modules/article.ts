@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getArticleById } from "@/service/article";
+// import test from "@/assets/data/response.json";
 export interface IArticleInitialState {
   author: IAuthorInitialState;
   comment_count: number;
@@ -8,7 +9,7 @@ export interface IArticleInitialState {
   label: string;
   like_count: number;
   time: string;
-  theme: string,
+  theme: string;
   title: string;
   uid: string;
   view_count: number;
@@ -33,6 +34,7 @@ export interface IAuthorInitialState {
 export const getArticleByIdAction = createAsyncThunk(
   "article",
   async (id: string) => {
+    // const res = test;
     const res = await getArticleById(id);
     return res.data;
   }
