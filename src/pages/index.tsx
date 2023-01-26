@@ -1,4 +1,3 @@
-
 import wrapper from "@/store";
 import { GetServerSideProps } from "next";
 
