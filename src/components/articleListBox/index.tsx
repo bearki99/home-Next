@@ -9,7 +9,6 @@ import type { IAppDispatch, IAppState } from "@/store";
 import { getArticlesAction, changePageAction } from "@/components/articleListBox/store/articleList";
 import isBottom from "@/utils/handleScrollBottom";
 
-
 interface IProps {
   children?: ReactNode;
 }

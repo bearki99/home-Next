@@ -5,7 +5,6 @@ import { IArticleItem } from "@/assets/interface/article";
 import { formatChangeTime } from "@/utils/formatTime";
 import styles from "./articleListItem.module.less";
 
-
 import Router from "next/router";
 import { Divider } from "antd";
 import { Popover } from "antd";
@@ -14,6 +13,7 @@ import {
   CloseOutlined
 } from "@ant-design/icons";
 import AuthorListItem from "../authorListItem";
+
 interface IProps {
   article: IArticleItem
 }

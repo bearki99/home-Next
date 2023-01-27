@@ -12,13 +12,13 @@
     margin-top: 7px;
     width: 4px;
     height: 16px;
-    background: #1e80ff;
+    background: var(--active-color);
     border-radius: 0 4px 4px 0;
   }
 
 
   & .item.active>.a-container {
-    color: #007fff;
+    color: var(--active-color);
   }
 
   & .item.d1>.a-container {
@@ -43,7 +43,7 @@
     font-size: 1.167rem;
     font-weight: 400;
     line-height: 22px;
-    color: #000;
+    color: var(--header-text-color);
     position: relative;
 
     .a-container {
@@ -73,7 +73,7 @@
 
   &>li {
     font-weight: 400;
-    color: #000;
+    color: var(--header-text-color);
     margin: 0;
     padding: 0 0 0 11px;
     list-style: none;
@@ -82,7 +82,7 @@
     font-size: 1.167rem;
     font-weight: 400;
     line-height: 22px;
-    color: #333;
+    color: var(--color);
     list-style: none;
   }
 
