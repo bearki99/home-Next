@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { memo } from "react";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
@@ -14,6 +14,8 @@ import { Dropdown, Space, Skeleton } from "antd";
 
 import styles from "./recommended.module.less";
 
+import { throttle } from "lodash";
+import { getScollTop } from "@/utils/getScrollTop";
 import Subheader from "@/components/subheader";
 import SubShow from "@/components/subshow";
 import Advertise from "@/components/advertise";
@@ -29,29 +31,25 @@ import {
   changeSubtabAction,
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
+import AdvertiseV2 from "@/components/advertise-v2";
 
 interface IProps {
   children?: ReactNode;
   homeTags?: any[];
   advertiseData?: any[];
 }
-// interface IItem {
-//   id: number;
-//   labels: any[];
-//   name: string;
-//   url: string;
-// }
+
 const SubContent: React.FC<IProps> = (props) => {
   const router = useRouter();
+  const authorRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<IAppDispatch>();
   const { label = "", names } = router.query;
   const { homeTags, advertiseData } = props;
+  const [sticky, setSticky] = useState(false);
   const labelTags = homeTags && homeTags.map((item: any) => item.url);
   const currentIndex = labelTags && labelTags.indexOf(label);
-  // const nameArr = homeTags && homeTags.map((item: IItem) => item.name);
-  // const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
-  // const myIndex = urlArr?.indexOf(label as string);
   let baseUrl = router.asPath;
+  let scrollTop = 0;
   if (router.asPath.indexOf("?") !== -1) {
     baseUrl = baseUrl.slice(0, router.asPath.indexOf("?"));
   }
@@ -108,6 +106,28 @@ const SubContent: React.FC<IProps> = (props) => {
       return "";
     }
   }
+
+  const handleScroll = () => {
+    scrollTop = getScollTop();
+    let myHeight: number;
+    if (authorRef.current) {
+      myHeight = authorRef.current.offsetTop + authorRef.current.offsetHeight;
+      if (scrollTop > myHeight) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    }
+  };
+
+  const bindHandleScroll = React.useRef(throttle(handleScroll, 100)).current;
+  useEffect(() => {
+    window.addEventListener("scroll", bindHandleScroll);
+    return () => {
+      window.removeEventListener("scroll", bindHandleScroll);
+    };
+  }, [bindHandleScroll]);
+
   return (
     <>
       {/* 次导航栏 */}
@@ -178,7 +198,10 @@ const SubContent: React.FC<IProps> = (props) => {
               <div className={styles.advertise}>
                 <Advertise advertiseData={advertiseData} />
               </div>
-              <div className={styles.author}>
+              <div className={styles.advertise}>
+                <AdvertiseV2 advertiseData={advertiseData} sticky={sticky} />
+              </div>
+              <div className={styles.author} ref={authorRef}>
                 <AuthorListBox />
               </div>
             </div>

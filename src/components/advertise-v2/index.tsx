@@ -1,14 +1,15 @@
 import classNames from "classnames";
 import React, { ReactNode, useEffect, useState } from "react";
 import { memo } from "react";
-import AdItem from "./c-cpns/ad-item";
-import Download from "./c-cpns/download";
+import AdItem from "../advertise/c-cpns/ad-item";
+import Download from "../advertise/c-cpns/download";
 import styles from "./style.module.less";
 import { throttle } from "lodash";
 
 interface IProps {
   children?: ReactNode;
   advertiseData?: any;
+  sticky: boolean;
 }
 interface IAdvertise {
   content: string;
@@ -19,8 +20,8 @@ interface IAdvertise {
   image: string;
   title: string;
 }
-const Advertise: React.FC<IProps> = (props) => {
-  const { advertiseData} = props;
+const AdvertiseV2: React.FC<IProps> = (props) => {
+  const { advertiseData, sticky } = props;
   const [isHide, setHide] = useState(false);
   let scrollTopV2 = 0;
   let topValue = 0;
@@ -70,6 +71,7 @@ const Advertise: React.FC<IProps> = (props) => {
     <div className={styles.container}>
       <div
         className={classNames([styles.all], {
+          [styles.sticky]: sticky === true,
           [styles.isHide]: isHide === true,
           [styles.notHide]: isHide === false,
         })}
@@ -85,5 +87,5 @@ const Advertise: React.FC<IProps> = (props) => {
     </div>
   );
 };
-export default memo(Advertise);
-Advertise.displayName = "Advertise";
+export default memo(AdvertiseV2);
+AdvertiseV2.displayName = "Advertise";
