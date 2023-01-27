@@ -2,6 +2,7 @@
   width: 20rem;
 }
 .all {
+  display: none;
   position: fixed;
   opacity: 0;
   margin-bottom: 2rem;
@@ -9,11 +10,21 @@
   transition: all 0.2s ease;
 }
 .sticky {
+  display: block;
   opacity: 1;
+  animation: hideIndex 0.5s;
 }
 .isHide {
   top: 5rem;
 }
 .notHide {
   top: 10rem;
+}
+@keyframes hideIndex {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
