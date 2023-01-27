@@ -36,7 +36,7 @@ const MainContent: React.FC<IProps> = (props) => {
   const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
   const router = useRouter();
   const { label = "" } = router.query;
-  const flag = urlArr.indexOf(label) !== -1 || label == "";
+  const flag = urlArr && urlArr.indexOf(label) !== -1 || label == "";
 
   return flag ? (
     <>
