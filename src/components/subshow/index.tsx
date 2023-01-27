@@ -4,16 +4,20 @@ import { memo } from "react";
 import styles from "./style.module.less";
 import Link from "next/link";
 import classNames from "classnames";
+
+
 interface IProps {
   children?: ReactNode;
   names?: string;
-  currentsubTags?: any[];
+  currentsubTags?: any;
+  homeTags?: any[];
 }
 
 const SubShow: React.FC<IProps> = (props) => {
   const router = useRouter();
-  const { label, names } = router.query;
-  const { currentsubTags } = props;
+  const { currentsubTags, homeTags } = props;
+  const initialLabel =homeTags && homeTags[0].url;
+  const { label = initialLabel, names } = router.query;
   const [myshow, setMyshow] = useState(false);
   const changeshow = useCallback(() => {
     setMyshow(true);

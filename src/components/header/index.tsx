@@ -16,9 +16,11 @@ import HeaderInput from "./c-cpns/input";
 import { throttle } from "lodash";
 import DarkBtn from "../dark-btn";
 import MobilePani from "./c-cpns/mobilePani";
+import { IHeader } from "@/assets/interface/header";
+import { IAppState } from "@/store";
 interface IProps {
   children?: ReactNode;
-  originHeader?: any;
+  originHeader?: IHeader[];
 }
 const LogoSrc =
   "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg";
@@ -30,7 +32,7 @@ const Header: React.FC<IProps> = (props) => {
   const [initialIndex, setIndex] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
   const { isHide } = useSelector(
-    (state: any) => ({
+    (state: IAppState) => ({
       isHide: state.header.isHide,
     }),
     shallowEqual
@@ -50,7 +52,7 @@ const Header: React.FC<IProps> = (props) => {
         setClickMenu(false);
       }
     },
-    [clickMenu]
+    []
   );
   useEffect(() => {
     if (clickMenu) {
@@ -59,7 +61,7 @@ const Header: React.FC<IProps> = (props) => {
         document.removeEventListener("click", clickCallback, false);
       };
     }
-  }, [clickMenu]);
+  }, [clickMenu, clickCallback]);
 
   //添加滚动监听 目前设置>0.2*contentHeight就隐藏，在>0.2*contentHeight后，如果方向往上，就显示，往下就隐藏
   let scrollTop = 0;
@@ -131,7 +133,9 @@ const Header: React.FC<IProps> = (props) => {
                   <>
                     <div className={styles.navPanigate}>
                       {originHeader &&
-                        originHeader.map((item: any, index: number) => {
+
+                        originHeader.map((item: IHeader, index: number) => {
+
                           return (
                             <div
                               className={styles.panigateItem}
@@ -193,7 +197,8 @@ const Header: React.FC<IProps> = (props) => {
                         )}
                       >
                         {originHeader &&
-                          originHeader.map((item: any, index: number) => {
+                          originHeader.map((item: IHeader, index: number) => {
+
                             return (
                               <Link
                                 href={item.url}

@@ -37,6 +37,14 @@ const SubHeader: React.FC<IProps> = (props) => {
       >
         <div className={styles.headerList}>
           <div className={styles.leftContent}>
+            <Link
+              className={classNames([styles.subheadItem], {
+                active: label === "recommended" || label === ""
+              })}
+              href="/recommended"
+            >
+              综合
+            </Link>
             {homeTags &&
               homeTags.map((item: any, index: number) => {
                 return (
@@ -49,12 +57,12 @@ const SubHeader: React.FC<IProps> = (props) => {
                       href={"/" + item.url}
                       className={classNames(
                         {
-                          active: item.url == label,
+                          active:
+                            item.url == label,
                         },
                         [styles.subheadItem]
                       )}
-                      onClick={() => {
-                      }}
+                      onClick={() => {}}
                       onMouseEnter={() => {
                         showTag();
                         changeIdx(index);

@@ -11,7 +11,6 @@ import SubContent from "./[names]/index";
 
 import { getHeaderTags, getOriginHeader } from "@/components/header/service";
 import { getAdvertiseData } from "@/components/advertise/service";
-
 import {
   changeActiveTypeAction,
   getArticlesAction,
@@ -37,7 +36,7 @@ const MainContent: React.FC<IProps> = (props) => {
   const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
   const router = useRouter();
   const { label = "" } = router.query;
-  const flag = urlArr.indexOf(label) !== -1;
+  const flag = urlArr && urlArr.indexOf(label) !== -1 || label == "" || label== "recommended";
 
   return flag ? (
     <>
@@ -68,7 +67,9 @@ export const getServerSideProps: GetServerSideProps =
         query.label !== "/" &&
         query.label !== "/favicon.ico"
       ) {
-        store.dispatch(changeActiveTypeAction(query.sort ? query.sort : "recommend"));
+        store.dispatch(
+          changeActiveTypeAction(query.sort ? query.sort : "recommend")
+        );
         store.dispatch(changeLabelAction(query.label));
         query.names && store.dispatch(changeSubtabAction(query.names));
         await store.dispatch(

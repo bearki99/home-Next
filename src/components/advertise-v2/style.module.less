@@ -2,15 +2,17 @@
   width: 20rem;
 }
 .all {
-  // position: fixed;
+  display: none;
+  position: fixed;
+  opacity: 0;
   margin-bottom: 2rem;
   width: 20rem;
+  transition: all 0.2s ease;
 }
 .sticky {
-  position: fixed;
+  display: block;
   opacity: 1;
   animation: hideIndex 0.5s;
-  transition: all 0.1s ease;
 }
 .isHide {
   top: 5rem;
