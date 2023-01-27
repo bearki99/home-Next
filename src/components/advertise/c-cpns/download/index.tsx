@@ -6,14 +6,12 @@ import Image from "next/image";
 interface IProps {
   children?: ReactNode;
 }
-const iconUrl =
-  "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/home.59780ae.png";
 const Download: React.FC<IProps> = () => {
   return (
     <div className={styles.container}>
       <Link href="/app" className={styles.link}>
         <Image
-          src={iconUrl}
+          src={""}
           alt="下载"
           className={styles.downloadImg}
           width={100}
