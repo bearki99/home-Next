@@ -37,6 +37,14 @@ const SubHeader: React.FC<IProps> = (props) => {
       >
         <div className={styles.headerList}>
           <div className={styles.leftContent}>
+            <Link
+              className={classNames([styles.subheadItem], {
+                active: label === "recommended" || label === ""
+              })}
+              href="/recommended"
+            >
+              综合
+            </Link>
             {homeTags &&
               homeTags.map((item: any, index: number) => {
                 return (
@@ -50,7 +58,7 @@ const SubHeader: React.FC<IProps> = (props) => {
                       className={classNames(
                         {
                           active:
-                            item.url == label || (index == 0 && label == ""),
+                            item.url == label,
                         },
                         [styles.subheadItem]
                       )}

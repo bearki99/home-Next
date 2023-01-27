@@ -139,7 +139,7 @@ const SubContent: React.FC<IProps> = (props) => {
         <div className={styles.mainContent}>
           <div className={styles.topNav}>
             {currentIndex >= 0 &&
-              homeTags &&
+              homeTags && label &&
               homeTags[currentIndex] &&
               homeTags[currentIndex]?.labels.length > 0 &&
               (
