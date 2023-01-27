@@ -19,7 +19,6 @@ import {
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
 
-
 interface IProps {
   children?: ReactNode;
   homeTags?: any;
@@ -37,7 +36,7 @@ const MainContent: React.FC<IProps> = (props) => {
   const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
   const router = useRouter();
   const { label = "" } = router.query;
-  const flag = urlArr.indexOf(label) !== -1;
+  const flag = urlArr.indexOf(label) !== -1 || label == "";
 
   return flag ? (
     <>
@@ -68,7 +67,9 @@ export const getServerSideProps: GetServerSideProps =
         query.label !== "/" &&
         query.label !== "/favicon.ico"
       ) {
-        store.dispatch(changeActiveTypeAction(query.sort ? query.sort : "recommend"));
+        store.dispatch(
+          changeActiveTypeAction(query.sort ? query.sort : "recommend")
+        );
         store.dispatch(changeLabelAction(query.label));
         query.names && store.dispatch(changeSubtabAction(query.names));
         await store.dispatch(
