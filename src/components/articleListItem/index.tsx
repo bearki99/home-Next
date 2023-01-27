@@ -1,11 +1,8 @@
-
 import React,{useState} from "react";
 import { memo } from "react";
 import { IArticleItem } from "@/assets/interface/article";
 import { formatChangeTime } from "@/utils/formatTime";
 import styles from "./articleListItem.module.less";
-
-
 import Router from "next/router";
 import { Divider } from "antd";
 import { Popover } from "antd";
@@ -14,12 +11,13 @@ import {
   CloseOutlined
 } from "@ant-design/icons";
 import AuthorListItem from "../authorListItem";
+
+
 interface IProps {
   article: IArticleItem
 }
 
 const ArticleListItem: React.FC<IProps> = (props) => {
-
   const [isClosed,setIsClosed] = useState(false);
   const { article } = props;
   const content = (

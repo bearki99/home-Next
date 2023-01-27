@@ -1,4 +1,3 @@
-
 import React, { ReactNode, useEffect,useCallback } from "react";
 
 import { memo } from "react";
@@ -8,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import type { IAppDispatch, IAppState } from "@/store";
 import { getArticlesAction, changePageAction } from "@/components/articleListBox/store/articleList";
 import isBottom from "@/utils/handleScrollBottom";
-
 
 interface IProps {
   children?: ReactNode;
@@ -24,7 +22,6 @@ const ArticleListBox: React.FC<IProps> = () => {
     label: state.articleList.label,
     subtab: state.articleList.subtab
   }));
-
 
   let timeout: any;
   const handleScroll = useCallback(function handleScroll() {
@@ -58,11 +55,9 @@ const ArticleListBox: React.FC<IProps> = () => {
     <div>
       <div className="articleList">
         {
-
           articles && articles.map((item: any) => {
             return (
               <ArticleListItem article={item} key={item.id}></ArticleListItem>
-
             );
           })
         }

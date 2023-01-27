@@ -14,7 +14,6 @@ export interface IArticleListInitialState {
   subtab: string;
 }
 export const getArticlesAction = createAsyncThunk("articleList", async (data: IArticleListRequest) => {
-
   const res = await getArticleListApi(data);
   return res.data.list;
 });
@@ -22,7 +21,6 @@ const articleList = createSlice({
   name: "articleList",
   initialState: {
     articles: [],
-
     activeType: "recommend",
     curPage: 1,
     curSize: 20,
@@ -31,7 +29,6 @@ const articleList = createSlice({
     subtab: ""
   } as IArticleListInitialState,
   reducers: {
-
     changePageAction(state) {
       state.curPage += 1;
     },
@@ -58,7 +55,6 @@ const articleList = createSlice({
     changeLoadingAction(state, { payload }) {
       console.log("loading", payload);
       state.isLoading = payload;
-
     },
     // removeArticleByIdAction(state, { payload }) {
     //   console.log('删除文章', payload)
@@ -86,7 +82,6 @@ const articleList = createSlice({
       });
   },
 });
-
 
 export const {
   changePageAction,
