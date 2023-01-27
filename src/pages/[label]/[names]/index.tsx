@@ -47,7 +47,8 @@ const SubContent: React.FC<IProps> = (props) => {
   const { homeTags, advertiseData } = props;
   const [sticky, setSticky] = useState(false);
   const labelTags = homeTags && homeTags.map((item: any) => item.url);
-  const currentIndex = labelTags && labelTags.indexOf(label);
+  let currentIndex = (labelTags && labelTags.indexOf(label)) || 0;
+  if (label === "") currentIndex = 0;
   let baseUrl = router.asPath;
   let scrollTop = 0;
   if (router.asPath.indexOf("?") !== -1) {
@@ -78,7 +79,6 @@ const SubContent: React.FC<IProps> = (props) => {
     activeType: state.articleList.activeType,
     isLoading: state.articleList.isLoading,
   }));
-
   // 骨架屏
   useEffect(() => {
     router.events.on("routeChangeStart", handleRouteChange);
@@ -138,13 +138,15 @@ const SubContent: React.FC<IProps> = (props) => {
 
         <div className={styles.mainContent}>
           <div className={styles.topNav}>
-            {label &&
-              currentIndex &&
+            {currentIndex >= 0 &&
               homeTags &&
               homeTags[currentIndex] &&
               homeTags[currentIndex]?.labels.length > 0 &&
               (
-                <SubShow currentsubTags={homeTags[currentIndex].labels} />
+                <SubShow
+                  currentsubTags={homeTags[currentIndex].labels}
+                  homeTags={homeTags}
+                />
               )}
           </div>
 
