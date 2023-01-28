@@ -1,7 +1,10 @@
 
 export function formatChangeTime(dateTimeStamp) {//传入需要判断的时间
   var result;
-  var time = Date.parse(dateTimeStamp);
+  var time = dateTimeStamp;
+  if(!/^[0-9]*$/.test (time)){
+    time = Date.parse(time);
+  }
   var nowTime = new Date().getTime();
   var timeDifference = nowTime - time;
 
