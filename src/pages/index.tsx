@@ -17,9 +17,10 @@ import Head from "next/head";
 interface IProps {
   homeTags: any[];
   advertiseData: any[];
+  originHeader: any;
 }
 export default function HomePage(props: IProps) {
-  const { homeTags, advertiseData } = props;
+  const { homeTags, advertiseData, originHeader } = props;
   return (
     <>
       <Head>
@@ -35,7 +36,11 @@ export default function HomePage(props: IProps) {
           content="掘金,稀土,Vue.js,前端面试题,Kotlin,ReactNative,Python"
         />
       </Head>
-      <MainContent homeTags={homeTags} advertiseData={advertiseData} />
+      <MainContent
+        homeTags={homeTags}
+        advertiseData={advertiseData}
+        originHeader={originHeader}
+      />
     </>
   );
 }

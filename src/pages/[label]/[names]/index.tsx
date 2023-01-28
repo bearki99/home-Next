@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { memo } from "react";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import wrapper from "@/store";
 
 import type { IAppDispatch, IAppState } from "@/store";
@@ -32,6 +33,7 @@ import {
 } from "@/components/articleListBox/store/articleList";
 import { getAuthorsAction } from "@/components/authorListBox/store/authorList";
 import AdvertiseV2 from "@/components/advertise-v2";
+import { IItem } from "..";
 
 interface IProps {
   children?: ReactNode;
@@ -54,6 +56,11 @@ const SubContent: React.FC<IProps> = (props) => {
   if (router.asPath.indexOf("?") !== -1) {
     baseUrl = baseUrl.slice(0, router.asPath.indexOf("?"));
   }
+  const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
+  const nameArr:any = homeTags && homeTags.map((item: IItem) => item.name);
+  const idx:any = nameArr && urlArr?.indexOf(label as string);
+  let title = "推荐 - 文章 - 掘金";
+  if (idx !== -1) title = nameArr[idx] + " - 掘金";
   const { sort } = router.query;
   // 下拉选项
   const items: MenuProps["items"] = [
@@ -130,6 +137,19 @@ const SubContent: React.FC<IProps> = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta
+          data-n-head="ssr"
+          name="description"
+          content="掘金是面向全球中文开发者的技术内容分享与交流平台。我们通过技术文章、沸点、课程、直播等产品和服务，打造一个激发开发者创作灵感，激励开发者沉淀分享，陪伴开发者成长的综合类技术社区。"
+        />
+        <meta
+          data-n-head="ssr"
+          name="keywords"
+          content="掘金,稀土,Vue.js,前端面试题,Kotlin,ReactNative,Python"
+        />
+      </Head>
       {/* 次导航栏 */}
       {names && <Subheader homeTags={homeTags} />}
 
@@ -139,7 +159,8 @@ const SubContent: React.FC<IProps> = (props) => {
         <div className={styles.mainContent}>
           <div className={styles.topNav}>
             {currentIndex >= 0 &&
-              homeTags && label &&
+              homeTags &&
+              label &&
               homeTags[currentIndex] &&
               homeTags[currentIndex]?.labels.length > 0 &&
               (

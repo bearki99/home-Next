@@ -36,7 +36,7 @@ const ADItem: React.FC<IProps> = (props) => {
           alt="广告"
           className={styles.adImg}
           height={200}
-          width={100}
+          width={240}
         />
       </Link>
 

@@ -36,9 +36,12 @@
   box-shadow: none !important;
   outline: none;
   font-size: 1.1rem;
-  color: #8a919f;
+  color: var(--input-text);
   background-color: transparent;
   transition: width 0.3s;
+}
+.myInput::placeholder{
+  color: var(--input-text);
 }
 .searchBtnCotainer {
   cursor: pointer;
@@ -62,6 +65,7 @@
 }
 .searchBtnActive {
   color: #eaf2ff;
+  // background: var(--input-bg);
   background: #eaf2ff;
 }
 .searchContentActive {
