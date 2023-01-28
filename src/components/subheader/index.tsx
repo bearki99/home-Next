@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { memo, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import styles from "./styles.module.less";
@@ -21,11 +21,17 @@ const SubHeader: React.FC<IProps> = (props) => {
   );
   const [showSubTags, setShowSubTags] = useState(false);
   const [currentIndex, changeIdx] = useState(-1);
+  const [showLabel, setShowLabel] = useState(true);
+  const myRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { names, label = "" } = router.query;
   const showTag = useRef(debounce(() => setShowSubTags(true), 500)).current;
   const hideTag = useCallback(() => {
     setShowSubTags(false);
+  }, []);
+  useEffect(() => {
+    if (myRef.current && myRef.current?.offsetWidth >= 960) setShowLabel(false);
+    else setShowLabel(true);
   }, []);
   return (
     <div className={styles.mysubHeader}>
@@ -34,17 +40,23 @@ const SubHeader: React.FC<IProps> = (props) => {
           [styles.Chide]: isHide === true,
           [styles.Cshow]: isHide === false,
         })}
+        id="con"
       >
         <div className={styles.headerList}>
-          <div className={styles.leftContent}>
-            <Link
-              className={classNames([styles.subheadItem], {
-                active: label === "recommended" || label === ""
-              })}
-              href="/recommended"
-            >
-              综合
-            </Link>
+          <div
+            className={classNames([styles.leftContent])}
+            ref={myRef}
+          >
+            <div className={styles.allItems}>
+              <Link
+                className={classNames([styles.subheadItem], {
+                  active: label === "recommended" || label === "",
+                })}
+                href="/recommended"
+              >
+                <span className={styles.text}>综合</span>
+              </Link>
+            </div>
             {homeTags &&
               homeTags.map((item: any, index: number) => {
                 return (
@@ -57,8 +69,7 @@ const SubHeader: React.FC<IProps> = (props) => {
                       href={"/" + item.url}
                       className={classNames(
                         {
-                          active:
-                            item.url == label,
+                          active: item.url == label,
                         },
                         [styles.subheadItem]
                       )}
@@ -70,7 +81,8 @@ const SubHeader: React.FC<IProps> = (props) => {
                     >
                       <span className={styles.text}>{item.name}</span>
                     </Link>
-                    {item.labels.length > 0 && (
+
+                    {showLabel && item.labels.length > 0 && (
                       <div
                         className={classNames(
                           {
@@ -111,15 +123,6 @@ const SubHeader: React.FC<IProps> = (props) => {
                   </div>
                 );
               })}
-            <Link
-              className={classNames(
-                [styles.subheadItem],
-                [styles.lastsubheadItem]
-              )}
-              href="/subcribe/subcribed"
-            >
-              标签管理
-            </Link>
           </div>
         </div>
       </div>
