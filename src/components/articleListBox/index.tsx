@@ -56,7 +56,6 @@ const ArticleListBox: React.FC<IProps> = (props) => {
   }));
   const { advertises } = props;
 
-
   let timeout: any;
   const handleScroll = useCallback(function handleScroll() {
     if (timeout !== null) {
