@@ -1,0 +1,94 @@
+.articleListItem {
+    height: 135px;
+    padding: 12px 20px 0 20px;
+    cursor: pointer;
+    overflow: hidden;
+    color: var(--text-color);
+    transition: all .5s ease;
+
+    &:hover {
+        background-color: var(--list-hover-color);
+    }
+
+    .artHead {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        white-space: nowrap;
+        .artHeadRight {
+            font-size: 12px;
+            padding: 2px 5px;
+            color: var(--advertise-text-color);
+            border: 1px solid var(--advertise-text-color);
+            border-radius: 2px;
+        }
+
+    }
+
+    .artBody {
+        display: flex;
+        width: 100%;
+        padding-bottom: 12px;
+        margin-top: 10px;
+        border-bottom: 1px solid #e5e6eb;
+
+        .artInfo {
+            flex: 1;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: space-around;
+            display: flex;
+
+            .artTitle {
+                font-size: 16px;
+                line-height: 26px;
+                font-weight: 600;
+                color: var(--color);
+            }
+
+            .artContent {
+                font-size: 14px;
+                line-height: 24px;
+            }
+        }
+
+        .artIMG {
+            margin-left: 24px;
+            @media screen and (max-width: 600px) {
+                margin-left: 12px;
+            }
+        }
+    }
+}
+
+
+.pcAuthor {
+    .author {
+        color: var(--color);
+        &:hover {
+            color: var(--item-active-color);
+        }
+    }
+}
+
+.mobileAuthor {
+    .author {
+        color: var(--color);
+
+        &:hover {
+            color: var(--item-active-color);
+        }
+    }
+}
+
+@media screen and (min-width:600px) {
+    .mobileAuthor {
+        display: none;
+    }
+}
+
+@media screen and (max-width:599px) {
+    .pcAuthor {
+        display: none;
+    }
+}
