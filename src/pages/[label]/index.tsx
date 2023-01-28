@@ -58,6 +58,7 @@ const MainContent: React.FC<IProps> = (props) => {
   let title2;
   if (idx !== -1) title = nameArr[idx] + " - 掘金";
   if (idx2 !== 0) title2 = oriName[idx2] + " - 掘金";
+  if(label === "") title = title2 = "稀土掘金";
   return flag ? (
     <>
       <Head>
