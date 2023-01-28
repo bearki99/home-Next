@@ -57,10 +57,11 @@ const SubContent: React.FC<IProps> = (props) => {
     baseUrl = baseUrl.slice(0, router.asPath.indexOf("?"));
   }
   const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
-  const nameArr:any = homeTags && homeTags.map((item: IItem) => item.name);
-  const idx:any = nameArr && urlArr?.indexOf(label as string);
+  const nameArr: any = homeTags && homeTags.map((item: IItem) => item.name);
+  const idx: any = nameArr && urlArr?.indexOf(label as string);
   let title = "推荐 - 文章 - 掘金";
   if (idx !== -1) title = nameArr[idx] + " - 掘金";
+  if (label == "") title = "稀土掘金";
   const { sort } = router.query;
   // 下拉选项
   const items: MenuProps["items"] = [

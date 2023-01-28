@@ -70,6 +70,7 @@ const SubHeader: React.FC<IProps> = (props) => {
                       className={classNames(
                         {
                           active: item.url == label,
+                          [styles.changePad]: showLabel === false
                         },
                         [styles.subheadItem]
                       )}
