@@ -15,7 +15,7 @@ const Loading: React.FC<{ isRouteChanging: boolean }> = ({
           transition: opacity ${animationDuration}ms linear;
         }
         .bar {
-          background: var(--active-color);
+          background: #2e88fd;
           height: 2px;
           left: 0;
           margin-left: ${(-1 + progress) * 100}%;

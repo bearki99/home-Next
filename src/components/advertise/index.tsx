@@ -77,7 +77,7 @@ const Advertise: React.FC<IProps> = (props) => {
         <div className={styles.content}>
           {advertiseData &&
             advertiseData.map((item: IAdvertise) => {
-              return <AdItem key={item.id} infoData={item} />;
+              return <AdItem key={item.id} infoData={item} id={item.id}/>;
             })}
           <Download />
         </div>

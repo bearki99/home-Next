@@ -3,6 +3,7 @@ import { memo } from "react";
 import wrapper from "@/store";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 import styles from "./style.module.less";
 
@@ -25,28 +26,75 @@ interface IProps {
   originHeader?: any;
   advertiseData?: any;
 }
-interface IItem {
+export interface IItem {
   id: number;
   labels: any[];
   name: string;
   url: string;
 }
 const MainContent: React.FC<IProps> = (props) => {
-  const { homeTags, advertiseData } = props;
+  const { homeTags, advertiseData, originHeader } = props;
   const urlArr = homeTags && homeTags.map((item: IItem) => item.url);
+  const oriUrl =
+    originHeader &&
+    originHeader.data &&
+    originHeader.data.map((item: any) => item.url);
   const router = useRouter();
   const { label = "" } = router.query;
-  const flag = urlArr && urlArr.indexOf(label) !== -1 || label == "" || label== "recommended";
+  const flag =
+    (urlArr && urlArr.indexOf(label) !== -1) ||
+    label == "" ||
+    label == "recommended";
+  const nameArr = homeTags && homeTags.map((item: IItem) => item.name);
+  const oriName =
+    originHeader &&
+    originHeader.data &&
+    originHeader.data.map((item: any) => item.name);
 
+  const idx = nameArr && urlArr.indexOf(label);
+  const idx2 = oriUrl && oriUrl.indexOf("/" + label);
+
+  let title = "推荐 - 文章 - 掘金";
+  let title2;
+  if (idx !== -1) title = nameArr[idx] + " - 掘金";
+  if (idx2 !== 0) title2 = oriName[idx2] + " - 掘金";
   return flag ? (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta
+          data-n-head="ssr"
+          name="description"
+          content="掘金是面向全球中文开发者的技术内容分享与交流平台。我们通过技术文章、沸点、课程、直播等产品和服务，打造一个激发开发者创作灵感，激励开发者沉淀分享，陪伴开发者成长的综合类技术社区。"
+        />
+        <meta
+          data-n-head="ssr"
+          name="keywords"
+          content="掘金,稀土,Vue.js,前端面试题,Kotlin,ReactNative,Python"
+        />
+      </Head>
       <Subheader homeTags={homeTags} />
       <SubContent advertiseData={advertiseData} homeTags={homeTags} />
     </>
   ) : (
-    <div className={styles.mainBG}>
-      <div className={styles.mainContent}></div>
-    </div>
+    <>
+      <Head>
+        <title>{title2}</title>
+        <meta
+          data-n-head="ssr"
+          name="description"
+          content="掘金是面向全球中文开发者的技术内容分享与交流平台。我们通过技术文章、沸点、课程、直播等产品和服务，打造一个激发开发者创作灵感，激励开发者沉淀分享，陪伴开发者成长的综合类技术社区。"
+        />
+        <meta
+          data-n-head="ssr"
+          name="keywords"
+          content="掘金,稀土,Vue.js,前端面试题,Kotlin,ReactNative,Python"
+        />
+      </Head>
+      <div className={styles.mainBG}>
+        <div className={styles.mainContent}></div>
+      </div>
+    </>
   );
 };
 export default memo(MainContent);

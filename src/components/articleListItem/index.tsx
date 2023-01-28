@@ -1,3 +1,4 @@
+
 import React,{useState} from "react";
 import { memo } from "react";
 import { IArticleItem } from "@/assets/interface/article";
@@ -12,12 +13,12 @@ import {
 } from "@ant-design/icons";
 import AuthorListItem from "../authorListItem";
 
-
 interface IProps {
   article: IArticleItem
 }
 
 const ArticleListItem: React.FC<IProps> = (props) => {
+
   const [isClosed,setIsClosed] = useState(false);
   const { article } = props;
   const content = (

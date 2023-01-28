@@ -78,8 +78,8 @@ const AdvertiseV2: React.FC<IProps> = (props) => {
       >
         <div className={styles.content}>
           {advertiseData &&
-            advertiseData.map((item: IAdvertise) => {
-              return <AdItem key={item.id} infoData={item} />;
+            advertiseData.slice(0, 2).map((item: IAdvertise) => {
+              return <AdItem key={item.id} infoData={item} id={item.id} />;
             })}
           <Download />
         </div>

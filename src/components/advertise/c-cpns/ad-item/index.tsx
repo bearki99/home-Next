@@ -1,10 +1,13 @@
 import classNames from "classnames";
+import Image from "next/image";
+import Link from "next/link";
 import React, { ReactNode, useCallback, useState } from "react";
 import { memo } from "react";
 import styles from "./style.module.less";
 interface IProps {
   children?: ReactNode;
   infoData?: IAdvertise;
+  id?: number;
 }
 export interface IAdvertise {
   content: string;
@@ -13,8 +16,8 @@ export interface IAdvertise {
   title: string;
 }
 const ADItem: React.FC<IProps> = (props) => {
-  const { infoData} = props;
-  const image = infoData && infoData.image;
+  const { infoData, id } = props;
+  const image = (infoData && infoData.image) || "";
   const [flag, setFlag] = useState(true);
   const [flag2, setFlag2] = useState(false);
   const handleShow = useCallback(() => {
@@ -26,12 +29,17 @@ const ADItem: React.FC<IProps> = (props) => {
     setFlag2(true);
   }, []);
   return (
-    <div
-      className={classNames(
-        [styles.adContent]
-      )}
-    >
-      <img src={image} alt="广告" className={styles.adImg} />
+    <div className={classNames([styles.adContent])}>
+      <Link href={"/article/" + id}>
+        <Image
+          src={image}
+          alt="广告"
+          className={styles.adImg}
+          height={200}
+          width={240}
+        />
+      </Link>
+
       <div
         className={classNames(
           {

@@ -36,7 +36,7 @@ const SubShow: React.FC<IProps> = (props) => {
         >
           <span>全部</span>
         </Link>
-        {myshow || (currentsubTags && currentsubTags.length < 9)
+        {myshow || (currentsubTags && currentsubTags.length <= 9)
           ? currentsubTags &&
             currentsubTags.map((item: any) => {
               return (
@@ -71,7 +71,7 @@ const SubShow: React.FC<IProps> = (props) => {
                 </Link>
               );
             })}
-        {!myshow && currentsubTags && currentsubTags.length >= 9 && (
+        {!myshow && currentsubTags && currentsubTags.length > 9 && (
           <div
             className={classNames([styles.item], [styles.allBtn])}
             onClick={changeshow}
