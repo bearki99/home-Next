@@ -192,7 +192,7 @@ const SubContent: React.FC<IProps> = (props) => {
               {isLoading ? (
                 <Skeleton active style={{ padding: "12px 20px" }} />
               ) : (
-                <ArticleListBox />
+                <ArticleListBox advertises={advertiseData} />
               )}
             </div>
 

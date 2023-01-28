@@ -12,7 +12,7 @@ export interface IAuthorList {
 * 作者
 */
 export interface IAuthor {
-  article_count: string;
+  article_count: number;
   /**
    * base64
    */

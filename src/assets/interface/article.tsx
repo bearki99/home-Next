@@ -16,7 +16,7 @@ export interface IArticleItem {
    * 作者用户名
    */
   author: {
-    article_count: string;
+    article_count: number;
     /**
      * base64
      */
