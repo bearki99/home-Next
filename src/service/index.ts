@@ -49,6 +49,6 @@ const request = new myRequest({
 export default request;
 
 export const testRequest = new myRequest({
-  baseURL: "http://127.0.0.1:4523/m1/2202148-0-default",
+  baseURL: "http://47.96.134.75:3000/",
   timeout: TIME_OUT,
 });
