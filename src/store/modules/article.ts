@@ -33,7 +33,7 @@ export interface IAuthorInitialState {
 
 export const getArticleByIdAction = createAsyncThunk(
   "article",
-  async (id: string) => {
+  async (id: number) => {
     // const res = test;
     const res = await getArticleById(id);
     return res.data;
