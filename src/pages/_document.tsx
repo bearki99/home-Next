@@ -16,7 +16,7 @@ export default function Document() {
           type="image/x-icon"
         />
       </Head>
-      <body className="light">
+      <body>
         <Main />
         <NextScript />
       </body>
