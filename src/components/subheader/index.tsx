@@ -30,7 +30,9 @@ const SubHeader: React.FC<IProps> = (props) => {
     setShowSubTags(false);
   }, []);
   useEffect(() => {
-    if (myRef.current && myRef.current?.offsetWidth >= 960) setShowLabel(false);
+    if (myRef.current && myRef.current?.scrollWidth > 960) {
+      setShowLabel(false);
+    }
     else setShowLabel(true);
   }, []);
   return (
@@ -43,10 +45,7 @@ const SubHeader: React.FC<IProps> = (props) => {
         id="con"
       >
         <div className={styles.headerList}>
-          <div
-            className={classNames([styles.leftContent])}
-            ref={myRef}
-          >
+          <div className={classNames([styles.leftContent])} ref={myRef}>
             <div className={styles.allItems}>
               <Link
                 className={classNames([styles.subheadItem], {
@@ -70,7 +69,7 @@ const SubHeader: React.FC<IProps> = (props) => {
                       className={classNames(
                         {
                           active: item.url == label,
-                          [styles.changePad]: showLabel === false
+                          [styles.changePad]: showLabel === false,
                         },
                         [styles.subheadItem]
                       )}
