@@ -14,6 +14,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol:"http",
+        hostname:"47.96.134.75",
+        port:"1234",
+        pathname:"/static/**"
+      }
     ],
   },
 };
@@ -39,12 +45,6 @@ module.exports = withLess({
         hostname: "dummyimage.com",
         port: "",
         pathname: "/**",
-      },
-      {
-        protocol:"http",
-        hostname:"47.96.134.75",
-        port:"1234",
-        pathname:"/static/**"
       }
     ],
   },
