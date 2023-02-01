@@ -211,8 +211,9 @@ const SubContent: React.FC<IProps> = (props) => {
                   </Dropdown>
                 )}
               </div>
+              
               {isLoading ? (
-                <Skeleton active style={{ padding: "12px 20px" }} />
+                <Skeleton active className="skeleton" />
               ) : (
                 <ArticleListBox advertises={advertiseData} />
               )}

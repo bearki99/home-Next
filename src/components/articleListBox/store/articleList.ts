@@ -25,7 +25,7 @@ const articleList = createSlice({
 
     activeType: "recommend",
     curPage: 1,
-    curSize: 20,
+    curSize: 5,
     isLoading: false,
     label: "",
     subtab: ""
