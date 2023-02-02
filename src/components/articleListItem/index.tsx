@@ -4,7 +4,7 @@ import { memo } from "react";
 import { IArticleItem } from "@/assets/interface/article";
 import { formatChangeTime } from "@/utils/formatTime";
 import styles from "./articleListItem.module.less";
-
+// import Router from "next/router";
 import { Divider } from "antd";
 import { Popover } from "antd";
 import Image from "next/image";
@@ -12,13 +12,13 @@ import {
   CloseOutlined
 } from "@ant-design/icons";
 import AuthorListItem from "../authorListItem";
+import md2NormalStr from "@/utils/md2NormalStr";
 
 interface IProps {
   article: IArticleItem
 }
 
 const ArticleListItem: React.FC<IProps> = (props) => {
-
   const [isClosed,setIsClosed] = useState(false);
   const { article } = props;
   const content = (
@@ -26,7 +26,6 @@ const ArticleListItem: React.FC<IProps> = (props) => {
       <AuthorListItem author={article.author} />
     </div>
   );
-
 
   return (
     <div className={styles.articleListItem+` ${isClosed?styles.closed:""}`} onClick={()=>{window.open("/article/" + article.id);}}>
@@ -55,7 +54,7 @@ const ArticleListItem: React.FC<IProps> = (props) => {
             {article.title}
           </div>
           <div className={styles.artContent + " textOms"}>
-            {article.content}
+            {md2NormalStr(article.content)}
           </div>
         </div>
         <div className={styles.artIMG}>

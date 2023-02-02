@@ -13,7 +13,7 @@ import classNames from "classnames";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeIsHideAction } from "./store";
 import HeaderInput from "./c-cpns/input";
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import DarkBtn from "../dark-btn";
 import MobilePani from "./c-cpns/mobilePani";
 import { IHeader } from "@/assets/interface/header";

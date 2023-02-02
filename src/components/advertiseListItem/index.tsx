@@ -8,6 +8,7 @@ import { Divider } from "antd";
 import { Popover } from "antd";
 import Image from "next/image";
 import AuthorListItem from "../authorListItem";
+import md2NormalStr from "@/utils/md2NormalStr";
 
 
 interface IProps {
@@ -47,7 +48,7 @@ const AdvertiseListItem: React.FC<IProps> = (props) => {
             {advertise.title}
           </div>
           <div className={styles.artContent + " textOms"}>
-            {advertise.content}
+            {md2NormalStr(advertise.content)}
           </div>
         </div>
         <div className={styles.artIMG}>
