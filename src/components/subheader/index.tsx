@@ -4,7 +4,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import styles from "./styles.module.less";
 import Link from "next/link";
 import classNames from "classnames";
-import { debounce } from "lodash";
+import { debounce } from "lodash-es";
 import { useRouter } from "next/router";
 import { IAppState } from "@/store";
 interface IProps {

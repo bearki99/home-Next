@@ -15,7 +15,7 @@ import { Dropdown, Space, Skeleton } from "antd";
 
 import styles from "./recommended.module.less";
 
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import { getScollTop } from "@/utils/getScrollTop";
 import Subheader from "@/components/subheader";
 import SubShow from "@/components/subshow";
@@ -211,7 +211,7 @@ const SubContent: React.FC<IProps> = (props) => {
                   </Dropdown>
                 )}
               </div>
-              
+
               {isLoading ? (
                 <Skeleton active className="skeleton" />
               ) : (

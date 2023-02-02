@@ -4,7 +4,7 @@ import { memo } from "react";
 import AdItem from "./c-cpns/ad-item";
 import Download from "./c-cpns/download";
 import styles from "./style.module.less";
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 
 interface IProps {
   children?: ReactNode;
