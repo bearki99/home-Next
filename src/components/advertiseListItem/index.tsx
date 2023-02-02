@@ -24,7 +24,7 @@ const AdvertiseListItem: React.FC<IProps> = (props) => {
   );
 
   return (
-    <div className={styles.articleListItem} onClick={() => { window.open("/article/" + advertise.id); }}>
+    <div className={styles.articleListItem} onClick={() => { window.open("/article/adv_" + advertise.id); }}>
       <div className={styles.artHead}>
         <div className={styles.artHeadLeft}>
           <span className={styles.pcAuthor}>

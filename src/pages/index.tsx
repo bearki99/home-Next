@@ -48,8 +48,7 @@ HomePage.displayName = "HomePage";
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
-    const { activeType, curPage, curSize, label, subtab } =
-      store.getState().articleList;
+
     const { authors } = store.getState().authorList;
     return async (context) => {
       const res = await getOriginHeader();
@@ -62,7 +61,8 @@ export const getServerSideProps: GetServerSideProps =
       );
       store.dispatch(changeLabelAction("recommended"));
       query.names && store.dispatch(changeSubtabAction(""));
-
+      const { activeType, curPage, curSize, label, subtab } =
+        store.getState().articleList;
       await store.dispatch(
         getArticlesAction({
           page: curPage,

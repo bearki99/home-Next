@@ -28,7 +28,7 @@ const ArticleListItem: React.FC<IProps> = (props) => {
   );
 
   return (
-    <div className={styles.articleListItem+` ${isClosed?styles.closed:""}`} onClick={()=>{window.open("/article/" + article.id);}}>
+    <div className={styles.articleListItem+` ${isClosed?styles.closed:""}`} onClick={()=>{window.open("/article/art_" + article.id);}}>
       <div className={styles.artHead}>
         <div className={styles.artHeadLeft}>
           <span className={styles.pcAuthor}>

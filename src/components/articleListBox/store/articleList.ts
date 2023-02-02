@@ -13,11 +13,26 @@ export interface IArticleListInitialState {
   label: string;
   subtab: string;
 }
-export const getArticlesAction = createAsyncThunk("articleList", async (data: IArticleListRequest) => {
 
-  const res = await getArticleListApi(data);
-  return res.data.list;
-});
+export const labelMap: Record<string, string> = {
+  frontend: "前端",
+  backend: "后端",
+  career: "代码人生",
+  recommended: "",
+  article: "文章",
+  following: "关注",
+  freebie: "开发工具",
+  "": "",
+};
+
+export const getArticlesAction = createAsyncThunk(
+  "articleList",
+  async (data: IArticleListRequest) => {
+    const res = await getArticleListApi(data);
+    return res.data.list;
+  }
+);
+
 const articleList = createSlice({
   name: "articleList",
   initialState: {
@@ -28,10 +43,9 @@ const articleList = createSlice({
     curSize: 5,
     isLoading: false,
     label: "",
-    subtab: ""
+    subtab: "",
   } as IArticleListInitialState,
   reducers: {
-
     changePageAction(state) {
       state.curPage += 1;
     },
@@ -44,8 +58,9 @@ const articleList = createSlice({
     },
     changeLabelAction(state, { payload }) {
       console.log(payload);
-      if (state.label !== payload) {
-        state.label = payload;
+      const label = labelMap[`${payload}`];
+      if (state.label !== label) {
+        state.label = label;
         state.curPage = 1;
       }
     },

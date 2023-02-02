@@ -159,7 +159,7 @@ const Article: React.FC<IProps> = (props: IProps) => {
                   </span>
                 </div>
               </div>
-              {article.related_articles.length !== 0 && <div className={styles.related_articles} ref={relatedArticleRef}>
+              {article.related_articles && article.related_articles.length !== 0 && <div className={styles.related_articles} ref={relatedArticleRef}>
                 <div className={styles.block_title}>相关文章</div>
                 <div className={styles.entry_list}>
                   {article.related_articles.map((article) => {
@@ -206,7 +206,8 @@ const Article: React.FC<IProps> = (props: IProps) => {
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(function (store) {
   return async (context) => {
-    await store.dispatch(getArticleByIdAction(+ (context.query.id as string)));
+    // 由传入id决定渲染广告内容or文章内容
+    await store.dispatch(getArticleByIdAction((context.query.id as string)));
     const article = store.getState().article;
     const res = await getOriginHeader();
     const date = new Date(+ (article.time));
