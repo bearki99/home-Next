@@ -1,14 +1,18 @@
 // 实现md anchor list
-import { memo } from "react";
+import { LegacyRef, memo } from "react";
 import styles from "./anchor.module.less";
 import React from "react";
-interface MyProps {
-  catalogContent: string;
+interface IProps {
+  catalogContent: string,
+  anchorRef: LegacyRef<HTMLDivElement>
 }
-const Anchor: React.FC<MyProps> = (props: MyProps) => {
-  const { catalogContent } = props;
+interface AnchorProps {
+  catalogContent: string,
+}
+const Anchor: React.FC<IProps> = (props: IProps) => {
+  const { catalogContent, anchorRef } = props;
   return (
-    <div className={styles.anchor_wrapper}>
+    <div className={styles.anchor_wrapper} ref={anchorRef}>
       <div dangerouslySetInnerHTML={{ __html: catalogContent }}></div>
     </div>
   );
@@ -52,5 +56,5 @@ export function toToc(data: string[]) {
   return result;
 }
 
-export default memo(Anchor);
+export default memo(React.forwardRef((props: AnchorProps, ref: LegacyRef<HTMLDivElement>) => <Anchor anchorRef={ref} catalogContent={(props as IProps).catalogContent} />));
 Anchor.displayName = "Anchor";

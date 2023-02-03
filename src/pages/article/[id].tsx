@@ -33,7 +33,6 @@ const Article: React.FC<IProps> = (props: IProps) => {
     } else {
       (articleCatalogRef.current as HTMLDivElement).style.position = "relative";
     }
-
     const titleList: Array<number> = [];
     for (let i = 0; i < divList.length; i++) {
       const child = divList[i] as HTMLElement;
@@ -47,12 +46,20 @@ const Article: React.FC<IProps> = (props: IProps) => {
       }
     }
     const itemList = catalogRef.current?.getElementsByClassName("item") as HTMLCollection;
+    const itemOffsetList: number[] = [];
     for (let j = 0; j < itemList.length; j++) {
-      const child = itemList[j];
+      const child = itemList[j] as HTMLElement;
+      itemOffsetList.push(j > 0 && child.offsetTop <= itemOffsetList[j - 1] ? itemOffsetList[j - 1] + 44 : child.offsetTop);
       child.classList.remove("active");
       if (i === j) {
         child.classList.add("active");
       }
+    }
+    const activeIndex = itemOffsetList.findIndex((itemOffset) => itemOffset + 44 >= (catalogRef.current?.offsetHeight as number) / 2);
+    if (itemOffsetList[i] + 44 >= (catalogRef.current?.offsetHeight as number) / 2) {
+      catalogRef.current?.scrollTo({
+        top: (i - activeIndex) * 38
+      });
     }
   }, []);
   const routeChange = useCallback(() => {
@@ -189,11 +196,10 @@ const Article: React.FC<IProps> = (props: IProps) => {
               {catalogContent !== "" && <div ref={articleCatalogRef} className={styles.article_catalog}>
                 <div className={styles.catalog_title}>目录</div>
                 <div
-                  ref={catalogRef}
                   className={styles.catalog}
                   onClick={routeChange}
                 >
-                  <Anchor catalogContent={catalogContent} />
+                  <Anchor ref={catalogRef} catalogContent={catalogContent} />
                 </div>
               </div>}
             </div>

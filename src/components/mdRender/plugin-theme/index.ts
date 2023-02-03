@@ -18,7 +18,7 @@ export const changeThemeStyle = (style: string) => {
  * 主题切换插件
  */
 export default function theme(themeName = "juejin"): BytemdPlugin {
-  changeThemeStyle(styles[themeName].style);
+  changeThemeStyle(styles[themeName || "juejin"].style);
   const actionItems = Object.entries(styles).map((item) => {
     const [key, value] = item;
     return {
