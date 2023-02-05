@@ -13,25 +13,27 @@ export interface IArticleListInitialState {
   label: string;
   subtab: string;
 }
-export const getArticlesAction = createAsyncThunk("articleList", async (data: IArticleListRequest) => {
 
-  const res = await getArticleListApi(data);
-  return res.data.list;
-});
+export const getArticlesAction = createAsyncThunk(
+  "articleList",
+  async (data: IArticleListRequest) => {
+    const res = await getArticleListApi(data);
+    return res.data.list;
+  }
+);
+
 const articleList = createSlice({
   name: "articleList",
   initialState: {
     articles: [],
-
     activeType: "recommend",
     curPage: 1,
     curSize: 5,
     isLoading: false,
     label: "",
-    subtab: ""
+    subtab: "",
   } as IArticleListInitialState,
   reducers: {
-
     changePageAction(state) {
       state.curPage += 1;
     },
@@ -58,7 +60,6 @@ const articleList = createSlice({
     changeLoadingAction(state, { payload }) {
       console.log("loading", payload);
       state.isLoading = payload;
-
     },
     // removeArticleByIdAction(state, { payload }) {
     //   console.log('删除文章', payload)
@@ -69,14 +70,15 @@ const articleList = createSlice({
   },
   extraReducers(builder) {
     // HYDRATE操作，保证服务器端和客户端的数据一致性
-    builder.addCase(HYDRATE, (state, action: any) => {
-      // state -> initialState
-      // action, payload -> rootState
-      return {
-        ...state,
-        ...action.payload.articleList,
-      };
-    })
+    builder
+      .addCase(HYDRATE, (state, action: any) => {
+        // state -> initialState
+        // action, payload -> rootState
+        return {
+          ...state,
+          ...action.payload.articleList,
+        };
+      })
       .addCase(getArticlesAction.fulfilled, (state, { payload }) => {
         if (state.curPage === 1) {
           state.articles = payload;

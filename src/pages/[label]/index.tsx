@@ -103,8 +103,6 @@ MainContent.displayName = "MainContent";
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
-    const { activeType, curPage, curSize, label, subtab } =
-      store.getState().articleList;
     const { authors } = store.getState().authorList;
     return async (context) => {
       const query = context.query;
@@ -119,8 +117,11 @@ export const getServerSideProps: GetServerSideProps =
         store.dispatch(
           changeActiveTypeAction(query.sort ? query.sort : "recommend")
         );
+        store.dispatch(changeSubtabAction(""));
         store.dispatch(changeLabelAction(query.label));
         query.names && store.dispatch(changeSubtabAction(query.names));
+        const { activeType, curPage, curSize, label, subtab } =
+          store.getState().articleList;
         await store.dispatch(
           getArticlesAction({
             page: curPage,
@@ -129,6 +130,7 @@ export const getServerSideProps: GetServerSideProps =
             type: activeType,
             subtab: subtab,
           })
+
         );
       }
       if (authors?.length === 0) {
