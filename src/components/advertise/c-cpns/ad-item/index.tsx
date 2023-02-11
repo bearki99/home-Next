@@ -30,7 +30,7 @@ const ADItem: React.FC<IProps> = (props) => {
   }, []);
   return (
     <div className={classNames([styles.adContent])}>
-      <Link href={"/article/" + id} target="_blank">
+      <Link href={"/article/" + id + "&ad=1"} target="_blank">
         <Image
           src={image}
           alt="广告"
