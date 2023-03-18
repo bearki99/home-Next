@@ -10,9 +10,9 @@ import Image from "next/image";
 import AuthorListItem from "../authorListItem";
 import md2NormalStr from "@/utils/md2NormalStr";
 
-
 interface IProps {
-  advertise: IAdvertisement
+  advertise: IAdvertisement;
+  style?: React.CSSProperties;
 }
 
 const AdvertiseListItem: React.FC<IProps> = (props) => {
@@ -24,7 +24,12 @@ const AdvertiseListItem: React.FC<IProps> = (props) => {
   );
 
   return (
-    <div className={styles.articleListItem} onClick={() => { window.open("/article/adv_" + advertise.id); }}>
+    <div
+      className={styles.articleListItem}
+      onClick={() => {
+        window.open("/article/adv_" + advertise.id);
+      }}
+    >
       <div className={styles.artHead}>
         <div className={styles.artHeadLeft}>
           <span className={styles.pcAuthor}>
@@ -38,13 +43,14 @@ const AdvertiseListItem: React.FC<IProps> = (props) => {
           <Divider type="vertical" />
           <span>{formatChangeTime(advertise.time)}</span>
         </div>
-        <div className={styles.artHeadRight}>
-          广告
-        </div>
+        <div className={styles.artHeadRight}>广告</div>
       </div>
       <div className={styles.artBody}>
         <div className={styles.artInfo}>
-          <div className={styles.artTitle + " SgtextOms"} title={advertise.title}>
+          <div
+            className={styles.artTitle + " SgtextOms"}
+            title={advertise.title}
+          >
             {advertise.title}
           </div>
           <div className={styles.artContent + " textOms"}>
@@ -52,9 +58,14 @@ const AdvertiseListItem: React.FC<IProps> = (props) => {
           </div>
         </div>
         <div className={styles.artIMG}>
-          {
-            advertise.image && (<Image src={advertise.image} height={80} width={120} alt={advertise.title}></Image>)
-          }
+          {advertise.image && (
+            <Image
+              src={advertise.image}
+              height={80}
+              width={120}
+              alt={advertise.title}
+            ></Image>
+          )}
         </div>
       </div>
     </div>

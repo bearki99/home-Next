@@ -12,12 +12,16 @@ export interface IArticleListInitialState {
   isLoading: boolean;
   label: string;
   subtab: string;
+  pageLoading: boolean;
 }
 
 export const getArticlesAction = createAsyncThunk(
   "articleList",
-  async (data: IArticleListRequest) => {
+  async (data: IArticleListRequest, { dispatch }) => {
+    dispatch(changePageLoadingAction(true));
     const res = await getArticleListApi(data);
+    dispatch(changePageLoadingAction(false));
+
     return res.data.list;
   }
 );
@@ -32,13 +36,16 @@ const articleList = createSlice({
     isLoading: false,
     label: "",
     subtab: "",
+    pageLoading: false,
   } as IArticleListInitialState,
   reducers: {
     changePageAction(state) {
       state.curPage += 1;
     },
+    changePageLoadingAction(state, { payload }) {
+      state.pageLoading = payload;
+    },
     changeActiveTypeAction(state, { payload }) {
-      console.log(payload);
       if (state.activeType !== payload) {
         state.activeType = payload;
         state.curPage = 1;
@@ -89,12 +96,13 @@ const articleList = createSlice({
   },
 });
 
-
 export const {
   changePageAction,
   changeActiveTypeAction,
   changeLoadingAction,
   changeLabelAction,
-  changeSubtabAction, } = articleList.actions;
+  changeSubtabAction,
+  changePageLoadingAction,
+} = articleList.actions;
 
 export default articleList.reducer;
